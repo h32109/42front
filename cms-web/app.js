@@ -4,11 +4,14 @@ const morgan = require('morgan')
 const path = require('path')
 const session = require('express-session')
 const dotenv = require('dotenv')
+const passport = require('passport')
 
 dotenv.config({path:__dirname+'/.env'}) // .env 파일 읽기
 const router = require('./routes')
+const passportConfig = require('./passport')
 
 const app = express() // 서버 선언
+passportConfig()
 app.set('port', process.env.PORT || 3000) // application에 port 환경변수 설정하기
 
 const connect = require('./schemas')
@@ -28,6 +31,8 @@ app.use(session({
         secure: false,
     }
 })) // 세션 사용 , cookie: 세션쿠키사용
+app.use(passport.initialize())
+app.use(passport.session())
 
 app.use('/', router)
 
@@ -40,7 +45,7 @@ app.use((req, res, next) => {
 
 app.use((err, req, res, next) => {
     res.locals.message = err.message;
-    res.locals.error = process.env.NODE_ENV !== 'production' ? err : {};
+    res.locals.error = process.env.NODE_ENV !== 'development' ? err : {};
     res.status(err.status || 500);
     res.render('error');
 }); // 500 에러 처리
