@@ -1,6 +1,6 @@
 # CMS-API
 
-web of project
+API of project
 
 ## Installation
 
