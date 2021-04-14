@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Head from "next/head";
-
+import styles from '../styles/Home.module.css'
 export default function Home() {
   const [text, setText] = useState<string>("자바스크립트");
 
@@ -12,7 +12,7 @@ export default function Home() {
   }, 1000);
 
   return (
-    <div className="container">
+    <div className={styles.container}>
       <div>
         <span>{text} 적용 완료</span>
       </div>
