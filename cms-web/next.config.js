@@ -16,7 +16,7 @@ module.exports = withBundleAnalyzer({
   },
   compress: process.env.MODE_ENV === "production",
   webpack(config) {
-    console.log(config);
+    // console.log(config);
     const prod = process.env.MODE_ENV === "production";
     // 원래 기본 next.js 의 webpack 설정에 custom 설정 추가
     return {
