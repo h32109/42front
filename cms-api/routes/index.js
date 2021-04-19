@@ -1,5 +1,5 @@
-const express = require("express");
-const User = require("../mongoose/user");
+import express from "express";
+import User from "../mongoose/user";
 
 const router = express.Router();
 
@@ -12,4 +12,4 @@ router.get("/", async (req, res, next) => {
   res.send(users);
 });
 
-module.exports = router;
+export default router;

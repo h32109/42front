@@ -1,24 +1,23 @@
-const express = require("express");
-const cookieParser = require("cookie-parser");
-const morgan = require("morgan");
-const path = require("path");
-const session = require("express-session");
-const dotenv = require("dotenv");
-const passport = require("passport");
+import express from "express";
+import cookieParser from "cookie-parser";
+import morgan from "morgan";
+import path from "path";
+import session from "express-session";
+import dotenv from "dotenv";
+import passport from "passport";
+import connect from "./mongoose";
+import { graphqlHTTP } from "express-graphql";
+import schema from "./graphql/schema";
 
 dotenv.config({ path: __dirname + "/.env" }); // .env 파일 읽기
-const router = require("./routes");
-const passportConfig = require("./passport");
+import router from "./routes";
+import passportConfig from "./passport";
 
 const app = express(); // 서버 선언
 passportConfig();
 app.set("port", process.env.PORT || 3000); // application에 port 환경변수 설정하기
 
-const connect = require("./mongoose");
 connect(); // mongoDB 연결
-
-const { graphqlHTTP } = require("express-graphql");
-const schema = require("./graphql/schema");
 
 // CORS 허용
 app.all("/*", function (req, res, next) {
@@ -49,7 +48,7 @@ app.use(passport.session());
 app.use("/", router);
 
 app.use(
-  "/graphql",
+  `/graphql`,
   graphqlHTTP({
     schema: schema,
     graphiql: true,

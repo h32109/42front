@@ -1,5 +1,5 @@
-const { makeExecutableSchema } = require("graphql-tools");
-const { resolvers } = require("./resolvers"); // resolvers.js 파일 생성
+import { makeExecutableSchema } from "graphql-tools";
+import resolvers from "./resolvers";
 
 const typeDefs = `
     type User {
@@ -21,8 +21,10 @@ const typeDefs = `
     }
 
     type Mutation {
-        createUser(input: UserInput): User
-    }
+      createUser(input: UserInput): User
+      updateUser(id: String!, input: UserInput): User
+      deleteUser(id: String!): User
+  }
 `;
 
 const schema = makeExecutableSchema({
@@ -30,4 +32,4 @@ const schema = makeExecutableSchema({
   resolvers,
 });
 
-module.exports = schema;
+export default schema;

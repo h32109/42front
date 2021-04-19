@@ -1,8 +1,8 @@
-const passport = require("passport");
-const local = require("./localStrategy");
-const User = require("../mongoose/user");
+import passport from "passport";
+import local from "./localStrategy";
+import User from "../mongoose/user";
 
-module.exports = () => {
+export default () => {
   passport.serializeUser((user, done) => {
     done(null, user.id);
   });
