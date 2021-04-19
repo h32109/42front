@@ -14,8 +14,11 @@ const app = express(); // 서버 선언
 passportConfig();
 app.set("port", process.env.PORT || 3000); // application에 port 환경변수 설정하기
 
-const connect = require("./schemas");
+const connect = require("./mongoose");
 connect(); // mongoDB 연결
+
+const { graphqlHTTP } = require("express-graphql");
+const schema = require("./graphql/schema");
 
 // CORS 허용
 app.all("/*", function (req, res, next) {
@@ -44,6 +47,14 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use("/", router);
+
+app.use(
+  "/graphql",
+  graphqlHTTP({
+    schema: schema,
+    graphiql: true,
+  })
+);
 
 app.use((req, res, next) => {
   const error = new Error(`Page not found`);
