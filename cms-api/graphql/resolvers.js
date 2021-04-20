@@ -3,7 +3,6 @@ const User = require("../mongoose/user");
 const resolvers = {
   Query: {
     async allUser() {
-      console.log("ccccccccccccccccccccccccccccc");
       return await User.find();
     },
   },

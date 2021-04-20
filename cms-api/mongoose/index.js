@@ -1,8 +1,9 @@
 const mongoose = require('mongoose');
 
-const { MONGO_ID, MONGO_PASSWORD, DB_NAME, NODE_ENV } = process.env;
-const MONGO_URL = `mongodb://${MONGO_ID}:${encodeURIComponent(MONGO_PASSWORD)}@localhost:27017/admin`;
 const connect = () => {
+    const { MONGO_ID, MONGO_PASSWORD, DB_NAME, NODE_ENV } = process.env;
+    const MONGO_URL = `mongodb://${MONGO_ID}:${encodeURIComponent(MONGO_PASSWORD)}@localhost:27017/admin`;
+
     if (NODE_ENV !== 'development') {
         mongoose.set('debug', true);
     }

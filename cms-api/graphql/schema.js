@@ -3,6 +3,7 @@ const { resolvers } = require("./resolvers"); // resolvers.js 파일 생성
 
 const typeDefs = `
     type User {
+        _id: ID!
         name: String!
         email: String!
         id: String!
