@@ -1,4 +1,4 @@
-const User = require("../mongoose/user");
+import User from "../mongoose/user";
 
 const resolvers = {
   Query: {
@@ -8,10 +8,15 @@ const resolvers = {
   },
   Mutation: {
     async createUser(_, { input }) {
-      console.log(input);
       return await User.create(input);
+    },
+    async updateUser(_, { id, input }) {
+      return await User.findOneAndUpdate({ id }, input, { new: true });
+    },
+    async deleteUser(_, { id }) {
+      return await User.findOneAndDelete({ id });
     },
   },
 };
 
-module.exports = resolvers;
+export default resolvers;

@@ -1,17 +1,18 @@
-const express = require("express");
-const cookieParser = require("cookie-parser");
-const morgan = require("morgan");
-const path = require("path");
-const session = require("express-session");
-const dotenv = require("dotenv");
-const passport = require("passport");
-const nunjucks = require('nunjucks');
-const { graphqlHTTP } = require("express-graphql");
-const schema = require("./graphql/schema");
+import express from "express";
+import cookieParser from "cookie-parser";
+import morgan from "morgan";
+import path from "path";
+import session from "express-session";
+import dotenv from "dotenv";
+import passport from "passport";
+import connect from "./mongoose";
+import { graphqlHTTP } from "express-graphql";
+import schema from "./graphql/schema";
+import nunjucks from 'nunjucks'
 
 dotenv.config({ path: __dirname + "/.env" }); // .env 파일 읽기
-const router = require("./routes");
-const passportConfig = require("./passport");
+import router from "./routes";
+import passportConfig from "./passport";
 
 const app = express(); // 서버 선언
 passportConfig();
@@ -22,15 +23,25 @@ nunjucks.configure('views', {
     watch: true,
 });
 
-const connect = require("./mongoose");
 connect(); // mongoDB 연결
 
 // CORS 허용
-app.all("/*", function (req, res, next) {
+const allowCrossDomain = function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "X-Requested-With");
-  next();
-});
+  res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Content-Type, Authorization, Content-Length, X-Requested-With"
+  );
+
+  // intercept OPTIONS method
+  if ("OPTIONS" == req.method) {
+    res.send(200);
+  } else {
+    next();
+  }
+};
+app.use(allowCrossDomain);
 
 app.use(morgan("dev")); // develop 형식으로 console log 남기기
 app.use(express.static(path.join(__dirname, "public"))); // static폴더 지정
@@ -54,7 +65,7 @@ app.use(passport.session());
 app.use("/", router);
 
 app.use(
-  "/graphql",
+  `/graphql`,
   graphqlHTTP({
     schema: schema,
     graphiql: true,

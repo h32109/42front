@@ -1,10 +1,10 @@
-const passport = require("passport");
+import passport from "passport";
 const LocalStrategy = require("passport-local").Strategy;
-const bcrypt = require("bcrypt");
+import bcrypt from "bcrypt";
 
-const User = require("../mongoose/user");
+import User from "../mongoose/user";
 
-module.exports = () => {
+export default () => {
   passport.use(
     new LocalStrategy(
       {
