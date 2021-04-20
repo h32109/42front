@@ -11,3 +11,11 @@ export function getAUser(uid) {
     }, 100);
   });
 }
+
+export function createNewUser(user) {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve(`New user [${user.nickname}] is successfully created.`)
+    }, 100)
+  })
+}

@@ -1,15 +1,10 @@
 {
-<<<<<<< HEAD
   "singleQuote": false,
   "semi": true,
   "useTabs": false,
   "tabWidth": 2,
   "trailingComma": "all",
   "printWidth": 80,
-  "endOfLine": "auto"
-}
-=======
-  "singleQuote": true,
+  "endOfLine": "auto",
   "arrowParens": "avoid"
 }
->>>>>>> mayo
