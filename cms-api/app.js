@@ -20,11 +20,22 @@ app.set("port", process.env.PORT || 3000); // application에 port 환경변수 �
 connect(); // mongoDB 연결
 
 // CORS 허용
-app.all("/*", function (req, res, next) {
+const allowCrossDomain = function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "X-Requested-With");
-  next();
-});
+  res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Content-Type, Authorization, Content-Length, X-Requested-With"
+  );
+
+  // intercept OPTIONS method
+  if ("OPTIONS" == req.method) {
+    res.send(200);
+  } else {
+    next();
+  }
+};
+app.use(allowCrossDomain);
 
 app.use(morgan("dev")); // develop 형식으로 console log 남기기
 app.use(express.static(path.join(__dirname, "public"))); // static폴더 지정
