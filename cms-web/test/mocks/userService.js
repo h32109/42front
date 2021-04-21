@@ -1,21 +1,18 @@
-export function getAUser(uid) {
-  return new Promise(resolve => {
-    setTimeout(() => {
-      const user = {
-        uid: uid,
-        nickname: `User_${uid}`,
-        age: parseInt(Math.random() * 120) + 1,
-      };
+import axios from "axios";
 
-      resolve(user);
-    }, 100);
-  });
-}
+const API_ENDPOINT = "https://jsonplaceholder.typicode.com";
 
-export function createNewUser(user) {
-  return new Promise(resolve => {
-    setTimeout(() => {
-      resolve(`New user [${user.nickname}] is successfully created.`)
-    }, 100)
-  })
-}
+export const getUser = uid =>
+  axios.get(`${API_ENDPOINT}/users/${uid}`).then(res => res.data);
+
+export const createUser = newUser => {
+  return axios.post(`${API_ENDPOINT}/users`, newUser).then(res => res.data);
+};
+
+export const updateUser = user => {
+  return axios.put(`${API_ENDPOINT}/users`, user).then(res => res.data);
+};
+
+export const deleteUser = uid => {
+  return axios.delete(`${API_ENDPOINT}/users/${uid}`).then(res => res.data);
+};
