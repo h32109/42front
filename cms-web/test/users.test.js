@@ -6,7 +6,7 @@ import {
   deleteUser,
 } from "./mocks/userService";
 
-jest.mock("./mocks/userService");
+// jest.mock("./mocks/userService");
 jest.mock("axios");
 
 const userMario = {
@@ -14,11 +14,6 @@ const userMario = {
   nickname: "Mario",
   age: 29,
 };
-
-beforeEach(() => {
-  getUser.mockClear();
-  createNewUser.mockClear();
-});
 
 test("get a user test", async () => {
   axios.get.mockResolvedValue({
@@ -29,24 +24,15 @@ test("get a user test", async () => {
     },
   });
 
-  // getUser.mockResolvedValue({
-  //   uid: 1,
-  //   nickname: "Mario",
-  //   age: 30,
-
   const user = await getUser(1);
 
   expect(user).toHaveProperty("uid", 1);
   expect(user).toHaveProperty("nickname", "Mario");
   expect(user).toHaveProperty("age", 30);
   expect(axios.get).toBeCalledTimes(1);
-  expect(axios.get).toBeCalledWith("https://testapi.url.com/users/1");
-
-  // return getUser().then(user => {
-  //   expect(user).toHaveProperty("uid");
-  //   expect(user).toHaveProperty("nickname");
-  //   expect(user).toHaveProperty("age");
-  // });
+  expect(axios.get).toBeCalledWith(
+    "https://jsonplaceholder.typicode.com/users/1",
+  );
 });
 
 test("create a user test", () => {

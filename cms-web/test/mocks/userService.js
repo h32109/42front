@@ -2,21 +2,8 @@ import axios from "axios";
 
 const API_ENDPOINT = "https://jsonplaceholder.typicode.com";
 
-export function getUser(uid) {
-  return axios.get(`${API_ENDPOINT}/users/${uid}`).then(res => res.data);
-
-  // return new Promise(resolve => {
-  //   setTimeout(() => {
-  //     const user = {
-  //       uid,
-  //       nickname: `User_${uid}`,
-  //       age: Math.floor(Math.random() * 120) + 1,
-  //     };
-
-  //     resolve(user);
-  //   }, 100);
-  // });
-}
+export const getUser = uid =>
+  axios.get(`${API_ENDPOINT}/users/${uid}`).then(res => res.data);
 
 export function createNewUser(user) {
   return new Promise((resolve, reject) => {
