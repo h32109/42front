@@ -1,19 +1,16 @@
 import axios from "axios";
 import {
   getUser,
-  createNewUser,
+  createUser,
   updateUser,
   deleteUser,
 } from "./mocks/userService";
 
-// jest.mock("./mocks/userService");
 jest.mock("axios");
 
-const userMario = {
-  uid: 1,
-  nickname: "Mario",
-  age: 29,
-};
+beforeEach(() => {
+  axios.mockClear();
+});
 
 test("get a user test", async () => {
   axios.get.mockResolvedValue({
@@ -35,26 +32,62 @@ test("get a user test", async () => {
   );
 });
 
-test("create a user test", () => {
-  createNewUser.mockResolvedValue("New user Mario is successfully created.");
-
-  return createNewUser(userMario).then(res => {
-    expect(res).toBe("New user Mario is successfully created.");
+test("create a user test", async () => {
+  axios.post.mockResolvedValue({
+    data: "New user Luigi is successfully created.",
   });
+
+  const result = await createUser({
+    uid: 2,
+    nickname: "Luigi",
+    age: 28,
+  });
+
+  expect(result).toBe("New user Luigi is successfully created.");
+  expect(axios.post).toBeCalledTimes(1);
+  expect(axios.post).toBeCalledWith(
+    "https://jsonplaceholder.typicode.com/users",
+    {
+      age: 28,
+      nickname: "Luigi",
+      uid: 2,
+    },
+  );
 });
 
-test("update a user", () => {
-  updateUser.mockResolvedValue(`User-${userMario.uid} has been updated.`);
-
-  return updateUser(userMario).then(res => {
-    expect(res).toBe("User-1 has been updated.");
+test("update a user", async () => {
+  axios.put.mockResolvedValue({
+    data: "User mario is successfully updated.",
   });
+
+  const result = await updateUser({
+    uid: 1,
+    nickname: "NewMario",
+    age: 31,
+  });
+
+  expect(result).toBe("User mario is successfully updated.");
+  expect(axios.put).toBeCalledTimes(1);
+  expect(axios.put).toBeCalledWith(
+    "https://jsonplaceholder.typicode.com/users",
+    {
+      uid: 1,
+      nickname: "NewMario",
+      age: 31,
+    },
+  );
 });
 
-test("delete a user", () => {
-  deleteUser.mockResolvedValue(`User-${userMario.uid} has been deleted.`);
-
-  return deleteUser(userMario).then(res => {
-    expect(res).toBe("User-1 has been deleted.");
+test("delete a user", async () => {
+  axios.delete.mockResolvedValue({
+    data: "User mario is successfully deleted.",
   });
+
+  const result = await deleteUser(1);
+
+  expect(result).toBe("User mario is successfully deleted.");
+  expect(axios.delete).toBeCalledTimes(1);
+  expect(axios.delete).toBeCalledWith(
+    "https://jsonplaceholder.typicode.com/users/1",
+  );
 });
