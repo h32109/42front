@@ -1,12 +1,15 @@
-const express = require('express');
-const User = require('../schemas/user');
+import express from "express";
+import User from "../mongoose/user";
 
 const router = express.Router();
 
-router.get('/', async (req, res, next) => {
-    /*const users = await User.find({});
+router.get("/", async (req, res, next) => {
+  /*const users = await User.find({});
     res.render('mongoose', { users });*/
-    res.send('Hello World!')
+  // res.send('Hello World!')
+  console.log("aaaaaaaaaaaaaaaaaaaaaaaaa");
+  const users = await User.find({});
+  res.send(users);
 });
 
-module.exports = router;
+export default router;

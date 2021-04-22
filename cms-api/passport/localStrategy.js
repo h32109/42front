@@ -1,29 +1,36 @@
-const passport = require('passport');
-const LocalStrategy = require('passport-local').Strategy;
-const bcrypt = require('bcrypt');
+import passport from "passport";
+const LocalStrategy = require("passport-local").Strategy;
+import bcrypt from "bcrypt";
 
-const User = require('../schemas/user');
+import User from "../mongoose/user";
 
-module.exports = () => {
-    passport.use(new LocalStrategy({
-        usernameField: 'id',
-        passwordField: 'password',
-    }, async (id, password, done) => {
+export default () => {
+  passport.use(
+    new LocalStrategy(
+      {
+        usernameField: "id",
+        passwordField: "password",
+      },
+      async (id, password, done) => {
         try {
-            const exUser = await User.findOne({ where: { id } });
-            if (exUser) {
-                const result = await bcrypt.compare(password, exUser.password);
-                if (result) {
-                    done(null, exUser);
-                } else {
-                    done(null, false, { message: 'Invalid password. Please try again.' });
-                }
+          const exUser = await User.findOne({ where: { id } });
+          if (exUser) {
+            const result = await bcrypt.compare(password, exUser.password);
+            if (result) {
+              done(null, exUser);
             } else {
-                done(null, false, { message: 'ID does not exist.' });
+              done(null, false, {
+                message: "Invalid password. Please try again.",
+              });
             }
+          } else {
+            done(null, false, { message: "ID does not exist." });
+          }
         } catch (error) {
-            console.error(error);
-            done(error);
+          console.error(error);
+          done(error);
         }
-    }));
+      }
+    )
+  );
 };
