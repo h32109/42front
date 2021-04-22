@@ -1,7 +1,7 @@
 import { gql } from "@apollo/client";
 
 const ALLUSER_QUERY = gql`
-  query allUser {
+  query {
     allUser {
       name
       id
@@ -11,4 +11,15 @@ const ALLUSER_QUERY = gql`
   }
 `;
 
-export default ALLUSER_QUERY;
+const ADDUSER_MUTATION = gql`
+  mutation createUser($UserInput: UserInput) {
+    createUser(input: $UserInput) {
+      id
+      name
+      email
+      password
+    }
+  }
+`;
+
+export { ALLUSER_QUERY, ADDUSER_MUTATION };
