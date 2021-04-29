@@ -1,6 +1,6 @@
 import passport from "passport";
 import local from "./localStrategy";
-import User from "../mongoose/user";
+import User from "../mongoose/user/user";
 
 export default () => {
   passport.serializeUser((user, done) => {

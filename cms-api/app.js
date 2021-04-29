@@ -12,6 +12,7 @@ import nunjucks from 'nunjucks'
 
 dotenv.config({ path: __dirname + "/.env" }); // .env 파일 읽기
 import router from "./routes";
+import userRouter from "./routes/user/user";
 import passportConfig from "./passport";
 
 const app = express(); // 서버 선언
@@ -63,6 +64,8 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use("/", router);
+app.use("/user", userRouter);
+
 
 app.use(
   `/graphql`,

@@ -1,4 +1,4 @@
-import User from "../mongoose/user";
+import User from "../mongoose/user/user";
 
 const resolvers = {
   Query: {
