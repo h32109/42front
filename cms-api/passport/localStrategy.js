@@ -1,19 +1,19 @@
 import passport from "passport";
 const LocalStrategy = require("passport-local").Strategy;
 import bcrypt from "bcrypt";
-
-import User from "../mongoose/user";
+import User from "../mongoose/user/user";
 
 export default () => {
-  passport.use(
-    new LocalStrategy(
+  passport.use(new LocalStrategy(
       {
-        usernameField: "id",
+        usernameField: "identifier",
         passwordField: "password",
+        session: true,
+        passReqToCallback: false
       },
-      async (id, password, done) => {
+      async (identifier, password, done) => {
         try {
-          const exUser = await User.findOne({ where: { id } });
+          const exUser = await User.findOne({ where: { identifier: identifier } });
           if (exUser) {
             const result = await bcrypt.compare(password, exUser.password);
             if (result) {

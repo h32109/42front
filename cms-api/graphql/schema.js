@@ -3,6 +3,7 @@ import resolvers from "./resolvers";
 
 const typeDefs = `
     type User {
+        _id: ID!
         name: String!
         email: String!
         id: String!
