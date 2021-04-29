@@ -1,4 +1,27 @@
+/** @jsxImportSource @emotion/react */
+import { css } from "@emotion/react";
+
 import React, { useEffect, useMemo, useRef, useState } from "react";
+
+const divStyle = css`
+  .date-container {
+    display: flex;
+    flex-direction: row;
+
+    select {
+      flex: 1;
+      font-size: 12px;
+      height: 40px;
+      border: 1px solid gray;
+      border-radius: 5px;
+      overflow: hidden;
+
+      &.alert {
+        border: 1px solid red;
+      }
+    }
+  }
+`;
 
 const BirthdayContainer: React.FC = () => {
   const [alert, setAlert] = useState(false);
@@ -33,7 +56,7 @@ const BirthdayContainer: React.FC = () => {
   }, []);
 
   return (
-    <div>
+    <div css={divStyle}>
       <div>
         <div>
           생일
@@ -41,7 +64,7 @@ const BirthdayContainer: React.FC = () => {
         </div>
         {alert && <i />}
       </div>
-      <span>
+      <span className="date-container">
         <select ref={yearRef} defaultValue={`${date.getFullYear()}년`}>
           <option value="0" disabled>
             연도

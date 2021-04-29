@@ -1,5 +1,28 @@
+/** @jsxImportSource @emotion/react */
+import { css } from "@emotion/react";
+
 import React, {useRef, useState} from "react";
 import {createPortal} from "react-dom";
+
+export const AlertInputStyle = css`
+  font-size: 12px;
+  height: 40px;
+  border: 1px solid gray;
+  border-radius: 5px;
+  overflow: hidden;
+  
+  input {
+    width: 100%;
+    border: none;
+    outline: none;
+    padding: 12px;
+    background: #f5f6f7;
+  }
+  
+  &.alert {
+    border: 1px solid red;
+  }
+`
 
 interface AlertInputProps {
   placeholder: string;
@@ -31,17 +54,14 @@ const AlertInput:React.FC<AlertInputProps> = (props) => {
   }
 
   return (
-    <div>
-      <div>
-        <div>{props.placeholder}</div>
-        <input type={'text'} aria-label={props.placeholder} onFocus={handleFocus} onBlur={handleBlur} tabIndex={props.tabIndex}/>
-      </div>
+    <div css={AlertInputStyle}>
+      <input placeholder={props.placeholder} type={'text'} aria-label={props.placeholder} onFocus={handleFocus} onBlur={handleBlur} tabIndex={props.tabIndex}/>
       <i />
       {
         showOverlay && <AlertInputOverlay />
       }
     </div>
-    )
+  )
 }
 
 export default AlertInput;
