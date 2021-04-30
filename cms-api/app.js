@@ -8,20 +8,21 @@ import passport from "passport";
 import connect from "./mongoose";
 import { graphqlHTTP } from "express-graphql";
 import schema from "./graphql/schema";
-import nunjucks from 'nunjucks'
+import nunjucks from "nunjucks";
 
 dotenv.config({ path: __dirname + "/.env" }); // .env 파일 읽기
 import router from "./routes";
 import userRouter from "./routes/user/user";
+import photoRouter from "./routes/photo/photo";
 import passportConfig from "./passport";
 
 const app = express(); // 서버 선언
 passportConfig();
 app.set("port", process.env.PORT || 5000); // application에 port 환경변수 설정하기
-app.set('view engine', 'html');
-nunjucks.configure('views', {
-    express: app,
-    watch: true,
+app.set("view engine", "html");
+nunjucks.configure("views", {
+  express: app,
+  watch: true,
 });
 
 connect(); // mongoDB 연결
@@ -65,7 +66,7 @@ app.use(passport.session());
 
 app.use("/", router);
 app.use("/user", userRouter);
-
+app.use("/photo", photoRouter);
 
 app.use(
   `/graphql`,
