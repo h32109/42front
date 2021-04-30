@@ -2,29 +2,42 @@
 import { css } from "@emotion/react";
 
 import React, { useEffect, useMemo, useRef, useState } from "react";
+import Icon from "@mdi/react";
+import { mdiAlertCircle } from "@mdi/js";
 
 const divStyle = css`
+  .date-header {
+    display: flex;
+    justify-content: space-between;
+  }
+
   .date-container {
     display: flex;
     flex-direction: row;
+    margin: 4px 0;
 
     select {
       flex: 1;
       font-size: 12px;
       height: 40px;
-      border: 1px solid gray;
+      border: 1px solid #ccd0d5;
       border-radius: 5px;
       overflow: hidden;
+      padding-left: 8px;
 
       &.alert {
         border: 1px solid red;
+      }
+
+      &:not(:first-child) {
+        margin-left: 12px;
       }
     }
   }
 `;
 
 const BirthdayContainer: React.FC = () => {
-  const [alert, setAlert] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
 
   const yearRef = useRef<HTMLSelectElement>(null);
   const monthRef = useRef<HTMLSelectElement>(null);
@@ -46,23 +59,25 @@ const BirthdayContainer: React.FC = () => {
     [],
   );
 
-  useEffect(() => {
-    // invalid check
-    if (yearRef.current.value === "2021년") {
-      setAlert(true);
-    } else {
-      setAlert(false);
-    }
-  }, []);
+  // useEffect(() => {
+  //   // invalid check
+  //   if (yearRef.current.value === "2021년") {
+  //     setShowAlert(true);
+  //   } else {
+  //     setShowAlert(false);
+  //   }
+  // }, []);
 
   return (
     <div css={divStyle}>
-      <div>
+      <div className={"date-header"}>
         <div>
           생일
           <i />
         </div>
-        {alert && <i />}
+        {showAlert && (
+          <Icon path={mdiAlertCircle} color={"red"} size={"1.7em"} />
+        )}
       </div>
       <span className="date-container">
         <select ref={yearRef} defaultValue={`${date.getFullYear()}년`}>

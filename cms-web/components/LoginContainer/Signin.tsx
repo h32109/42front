@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Card, Button, Form } from "react-bootstrap";
-import { css } from "@emotion/react";
 import styled from "@emotion/styled";
+import SignupModal from "../SignupContainer";
 
 export const Signinbox = styled.div`
   text-align: center;
@@ -25,44 +25,62 @@ const Signin = () => {
     // eslint-disable-next-line no-console
     console.log(state);
   }
+
+  const [showModal, setShowModal] = useState(false);
+  const handleCreateClick = (e: React.MouseEvent) => {
+    setShowModal(true);
+  };
+
   return (
-    <Signinbox>
-      <Card>
-        <Card.Body>
-          <Form>
-            <Form.Group>
-              <input
-                className="form-control"
-                type="text"
-                placeholder="Email or Phone Number"
-                name="contact"
-                onChange={handleChange}
-                value={state.contact}
-              />
-            </Form.Group>
-            <Form.Group>
-              <input
-                className="form-control"
-                type="password"
-                placeholder='Password'
-                name="password"
-                onChange={handleChange}
-                value={state.password}
-              />
-            </Form.Group>
-            <Form.Group>
-              <Button variant="primary" className="bg-fb-blue" size="lg" block>
-                Log In
+    <>
+      <Signinbox>
+        <Card>
+          <Card.Body>
+            <Form>
+              <Form.Group>
+                <input
+                  className="form-control"
+                  type="text"
+                  placeholder="Email or Phone Number"
+                  name="contact"
+                  onChange={handleChange}
+                  value={state.contact}
+                />
+              </Form.Group>
+              <Form.Group>
+                <input
+                  className="form-control"
+                  type="password"
+                  placeholder="Password"
+                  name="password"
+                  onChange={handleChange}
+                  value={state.password}
+                />
+              </Form.Group>
+              <Form.Group>
+                <Button
+                  variant="primary"
+                  className="bg-fb-blue"
+                  size="lg"
+                  block
+                >
+                  Log In
+                </Button>
+              </Form.Group>
+              <hr />
+              <Button
+                variant="success"
+                className="btn btn-lg bg-fb-green"
+                onClick={handleCreateClick}
+              >
+                Create New Account
               </Button>
-            </Form.Group>
-            <hr />
-            <Button variant="success" className="btn btn-lg bg-fb-green">
-              Create New Account
-            </Button>
-          </Form>
-        </Card.Body>
-      </Card>
-    </Signinbox>
+            </Form>
+          </Card.Body>
+        </Card>
+      </Signinbox>
+      <SignupModal show={showModal} />
+    </>
   );
 };
 

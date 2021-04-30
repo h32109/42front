@@ -1,9 +1,8 @@
-import React from 'react';
-import { Container, Row, Col } from 'react-bootstrap';
+import React from "react";
+import { Container, Row, Col } from "react-bootstrap";
 import styled from "@emotion/styled";
 import Introfacebook from "../components/LoginContainer/IntroFacebook";
 import Signin from "../components/LoginContainer/Signin";
-
 
 export const LoginLayout = styled.div`
   width: 100vw;
