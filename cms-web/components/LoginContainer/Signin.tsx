@@ -27,6 +27,9 @@ const Signin = () => {
   }
 
   const [showModal, setShowModal] = useState(false);
+  const toggleShow = () => {
+    setShowModal(prev => !prev);
+  };
   const handleCreateClick = (e: React.MouseEvent) => {
     setShowModal(true);
   };
@@ -79,7 +82,7 @@ const Signin = () => {
           </Card.Body>
         </Card>
       </Signinbox>
-      <SignupModal show={showModal} />
+      <SignupModal show={showModal} toggleShow={toggleShow} />
     </>
   );
 };

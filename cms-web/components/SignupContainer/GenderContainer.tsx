@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 
-import React, { useState } from "react";
+import React, { ChangeEvent, useState } from "react";
 import Icon from "@mdi/react";
 import { mdiAlertCircle } from "@mdi/js";
 import CustomGenderContainer from "./CustomGenderContainer";
@@ -35,19 +35,25 @@ const divStyle = css`
         flex: 1;
       }
 
-      &:not(:first-child) {
+      &:not(:first-of-type) {
         margin-left: 12px;
       }
     }
   }
 `;
 
+enum Gender {
+  Male = "1",
+  Female = "2",
+  Custom = "-1",
+}
+
 const GenderContainer: React.FC = () => {
   const [showAlert, setShowAlert] = useState(false);
   const [showCustom, setShowCustom] = useState(false);
 
-  const handleClick = (e: React.MouseEvent) => {
-    if ((e.target as HTMLInputElement).value === '-1') {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.value === Gender.Custom) {
       setShowCustom(true);
     } else {
       setShowCustom(false);
@@ -65,36 +71,18 @@ const GenderContainer: React.FC = () => {
           <Icon path={mdiAlertCircle} color={"red"} size={"1.7em"} />
         )}
       </div>
-      <span className={"gender-list"}>
+      <span className={"gender-list"} onChange={handleChange}>
         <label htmlFor="female">
           <span>여성</span>
-          <input
-            id="female"
-            type="radio"
-            name="gender"
-            value="1"
-            onClick={handleClick}
-          />
+          <input id="female" type="radio" name="gender" value={Gender.Male} />
         </label>
         <label htmlFor="male">
           <span>남성</span>
-          <input
-            id="male"
-            type="radio"
-            name="gender"
-            value="2"
-            onClick={handleClick}
-          />
+          <input id="male" type="radio" name="gender" value={Gender.Female} />
         </label>
         <label htmlFor="custom">
           <span>직접 지정</span>
-          <input
-            id="custom"
-            type="radio"
-            name="gender"
-            value="-1"
-            onClick={handleClick}
-          />
+          <input id="custom" type="radio" name="gender" value={Gender.Custom} />
         </label>
       </span>
       {showCustom && <CustomGenderContainer />}

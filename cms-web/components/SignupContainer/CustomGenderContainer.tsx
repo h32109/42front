@@ -17,6 +17,7 @@ const divStyle = css`
     border-radius: 5px;
     overflow: hidden;
     margin: 4px 0;
+    padding: 0 4px;
   }
 `;
 

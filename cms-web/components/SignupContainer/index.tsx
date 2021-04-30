@@ -6,6 +6,20 @@ import AlertInput from "./AlertInput";
 import GenderContainer from "./GenderContainer";
 import BirthdayContainer from "./BirthdayContainer";
 import { Modal, ModalBody } from "react-bootstrap";
+import ModalHeader from "react-bootstrap/ModalHeader";
+
+const modalHeader = css`
+  display: flex;
+  flex-direction: column;
+  .title {
+    font-size: 32px;
+    font-weight: bold;
+  }
+  .description {
+    font-size: 15px;
+    color: #606770;
+  }
+`;
 
 const divStyle = css`
   font-size: 12px;
@@ -22,7 +36,7 @@ const divStyle = css`
     > div {
       flex: 1;
 
-      &:first-child {
+      &:first-of-type {
         margin-right: 8px;
       }
     }
@@ -47,11 +61,22 @@ const divStyle = css`
 
 interface SignupModalProps {
   show: boolean;
+  toggleShow: () => void;
 }
 
-const SignupModal: React.FC<SignupModalProps> = ({ show }) => {
+const SignupModal: React.FC<SignupModalProps> = ({ show, toggleShow }) => {
+  const handleClose = () => {
+    toggleShow();
+  };
+
   return (
-    <Modal show={show}>
+    <Modal show={show} onHide={handleClose}>
+      <ModalHeader closeButton={true}>
+        <div css={modalHeader}>
+          <div className={"title"}>가입하기</div>
+          <div className={"description"}>빠르고 쉽습니다.</div>
+        </div>
+      </ModalHeader>
       <ModalBody>
         <div css={divStyle}>
           <div className="name-container">

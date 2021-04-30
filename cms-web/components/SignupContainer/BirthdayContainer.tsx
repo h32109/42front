@@ -29,7 +29,7 @@ const divStyle = css`
         border: 1px solid red;
       }
 
-      &:not(:first-child) {
+      &:not(:first-of-type) {
         margin-left: 12px;
       }
     }
@@ -50,23 +50,27 @@ const BirthdayContainer: React.FC = () => {
     const end = date.getFullYear();
     return Array.from({ length: end - start }, (_, k) => `${start + k + 1}년`);
   }, []);
+
   const monthList = useMemo(
     () => Array.from({ length: 12 }, (_, k) => `${k + 1}월`),
     [],
   );
+
   const dayList = useMemo(
     () => Array.from({ length: 31 }, (_, k) => `${k + 1}일`),
     [],
   );
 
-  // useEffect(() => {
-  //   // invalid check
-  //   if (yearRef.current.value === "2021년") {
-  //     setShowAlert(true);
-  //   } else {
-  //     setShowAlert(false);
-  //   }
-  // }, []);
+  const handleFocus = () => {
+    setShowAlert(false);
+  };
+
+  const handleBlur = () => {
+    //TODO: invalid check
+    if (yearRef.current.value === "2021년") {
+      setShowAlert(true);
+    }
+  };
 
   return (
     <div css={divStyle}>
@@ -80,7 +84,12 @@ const BirthdayContainer: React.FC = () => {
         )}
       </div>
       <span className="date-container">
-        <select ref={yearRef} defaultValue={`${date.getFullYear()}년`}>
+        <select
+          ref={yearRef}
+          defaultValue={`${date.getFullYear()}년`}
+          onFocus={handleFocus}
+          onBlur={handleBlur}
+        >
           <option value="0" disabled>
             연도
           </option>
@@ -90,7 +99,12 @@ const BirthdayContainer: React.FC = () => {
             </option>
           ))}
         </select>
-        <select ref={monthRef} defaultValue={`${date.getMonth() + 1}월`}>
+        <select
+          ref={monthRef}
+          defaultValue={`${date.getMonth() + 1}월`}
+          onFocus={handleFocus}
+          onBlur={handleBlur}
+        >
           <option value="0" disabled>
             월
           </option>
@@ -100,7 +114,12 @@ const BirthdayContainer: React.FC = () => {
             </option>
           ))}
         </select>
-        <select ref={dayRef} defaultValue={`${date.getDate()}일`}>
+        <select
+          ref={dayRef}
+          defaultValue={`${date.getDate()}일`}
+          onFocus={handleFocus}
+          onBlur={handleBlur}
+        >
           <option value="0" disabled>
             일
           </option>
