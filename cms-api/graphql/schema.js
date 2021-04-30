@@ -2,30 +2,30 @@ import { makeExecutableSchema } from "graphql-tools";
 import resolvers from "./resolvers";
 
 const typeDefs = `
-    type User {
+    type Photo {
         _id: ID!
-        name: String!
-        email: String!
-        id: String!
-        password: String!
+        comments: [String]
+        created: String
+        likes: [String]
+        photoTags: [String]
+        referencePhoto: [String]
+        link: String
+        largeSource: String
+        mediumSource: String
+        smallSource: String
+        caption: String
+    }
+
+    type PhotoPage {
+      contents: [Photo]
+      page: Int
+      size: Int
+      totalPage: Int
     }
 
     type Query {
-        allUser: [User]
+      getPhotos(page: Int, size: Int): PhotoPage
     }
-
-    input UserInput {
-      name: String!
-      email: String!
-      id: String!
-      password: String!
-    }
-
-    type Mutation {
-      createUser(input: UserInput): User
-      updateUser(id: String!, input: UserInput): User
-      deleteUser(id: String!): User
-  }
 `;
 
 const schema = makeExecutableSchema({
