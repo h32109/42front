@@ -11,8 +11,17 @@ import schema from "./graphql/schema";
 import nunjucks from 'nunjucks'
 
 dotenv.config({ path: __dirname + "/.env" }); // .env 파일 읽기
+
+if (process.env.NODE_ENV === 'production') {
+    dotenv.config({ path: path.join(__dirname, '/.env.production') })
+} else {
+    dotenv.config({ path: path.join(__dirname, '/.env.develop') })
+}
+
 import router from "./routes";
-import userRouter from "./routes/user/user";
+import userRouter from "./routes/auth";
+import mailRouter from "./routes/mail";
+
 import passportConfig from "./passport";
 
 const app = express(); // 서버 선언
@@ -65,6 +74,7 @@ app.use(passport.session());
 
 app.use("/", router);
 app.use("/user", userRouter);
+app.use("/mail", mailRouter)
 
 
 app.use(
