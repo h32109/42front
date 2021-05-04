@@ -1,4 +1,5 @@
 import React from "react";
+import { css } from "@emotion/css";
 import styled from "@emotion/styled";
 import Icon from "@mdi/react";
 
@@ -16,9 +17,17 @@ import { mdiChevronDown } from "@mdi/js";
 const Header = () => {
   return (
     <HeaderDiv>
-      {/* <img src={facebookLogo} alt="Facebook" /> */}
       <LogoAndSearch>
-        <HeaderLogo>Facebook</HeaderLogo>
+        <HeaderLogo>
+          <img
+            src="/img/f_logo_RGB-Blue_250.png"
+            alt="Facebook"
+            className={css`
+              width: 42px;
+              height: 42px;
+            `}
+          />
+        </HeaderLogo>
         <HeaderSearch>
           <Icon path={mdiMagnify} color="rgb(101, 103, 107)" size={1} />
           <input type="text" placeholder="Facebook 검색" />
@@ -78,15 +87,18 @@ const LogoAndSearch = styled.div`
   align-items: center;
   width: 320px;
   height: 80%;
+  margin-left: 15px;
 `;
 const HeaderLogo = styled.div``;
 
 const HeaderSearch = styled.div`
   display: flex;
   align-items: center;
-  width: 90%;
+  width: 75%;
   height: 90%;
   padding: 0 10px;
+  margin-left: 10px;
+
   border-radius: 20px;
   background-color: rgb(240, 242, 245);
 
