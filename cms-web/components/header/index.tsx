@@ -3,16 +3,17 @@ import { css } from "@emotion/css";
 import styled from "@emotion/styled";
 import Icon from "@mdi/react";
 
-import { mdiMagnify } from "@mdi/js";
-import { mdiHome } from "@mdi/js";
-import { mdiTelevisionPlay } from "@mdi/js";
-import { mdiAccountGroup } from "@mdi/js";
-import { mdiGamepadSquare } from "@mdi/js";
-
-import { mdiPlus } from "@mdi/js";
-import { mdiMessage } from "@mdi/js";
-import { mdiBell } from "@mdi/js";
-import { mdiChevronDown } from "@mdi/js";
+import {
+  mdiMagnify,
+  mdiHome,
+  mdiTelevisionPlay,
+  mdiAccountGroup,
+  mdiGamepadSquare,
+  mdiPlus,
+  mdiMessage,
+  mdiBell,
+  mdiChevronDown,
+} from "@mdi/js";
 
 const Header = () => {
   return (
@@ -103,9 +104,14 @@ const HeaderSearch = styled.div`
   background-color: rgb(240, 242, 245);
 
   input {
-    width: 100px;
+    width: 100%;
     border: none;
     background-color: rgba(0, 0, 0, 0);
+    font-size: 0.9rem;
+
+    &:focus {
+      outline: none;
+    }
   }
 `;
 
