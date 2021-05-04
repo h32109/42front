@@ -70,7 +70,7 @@ const SignupModal: React.FC<SignupModalProps> = ({ show, toggleShow }) => {
   };
 
   return (
-    <Modal show={show} onHide={handleClose}>
+    <Modal show={show} onHide={handleClose} centered>
       <ModalHeader closeButton={true}>
         <div css={modalHeader}>
           <div className={"title"}>가입하기</div>
@@ -78,19 +78,21 @@ const SignupModal: React.FC<SignupModalProps> = ({ show, toggleShow }) => {
         </div>
       </ModalHeader>
       <ModalBody>
-        <div css={divStyle}>
-          <div className="name-container">
-            <AlertInput placeholder="성(姓)" tabIndex={0} />
-            <AlertInput placeholder="이름(성은 제외)" />
+        <form>
+          <div css={divStyle}>
+            <div className="name-container">
+              <AlertInput placeholder="성(姓)" tabIndex={0} />
+              <AlertInput placeholder="이름(성은 제외)" />
+            </div>
+            <AlertInput placeholder="휴대폰 번호 또는 이메일" />
+            <AlertInput placeholder="새 비밀번호" />
+            <BirthdayContainer />
+            <GenderContainer />
+            <div className={"submit-button-container"}>
+              <button type="submit">가입하기</button>
+            </div>
           </div>
-          <AlertInput placeholder="휴대폰 번호 또는 이메일" />
-          <AlertInput placeholder="새 비밀번호" />
-          <BirthdayContainer />
-          <GenderContainer />
-          <div className={"submit-button-container"}>
-            <button type="submit">가입하기</button>
-          </div>
-        </div>
+        </form>
       </ModalBody>
     </Modal>
   );
