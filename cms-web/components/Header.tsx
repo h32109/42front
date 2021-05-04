@@ -16,6 +16,9 @@ const Header = () => {
       <Link href="/client">
         <button type="button">client</button>
       </Link>
+      <Link href="/dashboard">
+        <button type="button">Dashboard</button>
+      </Link>
     </div>
   );
 };
