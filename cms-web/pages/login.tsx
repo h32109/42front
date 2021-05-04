@@ -1,10 +1,24 @@
-import React from 'react';
+import React from "react";
+import styled from "@emotion/styled";
+import Introfacebook from "../components/LoginContainer/IntroFacebook";
+import Signin from "../components/LoginContainer/Signin";
 
-const Login = ({ id }) => {
-  return <div>Login {id}</div>;
+export const LoginLayout = styled.div`
+  width: 100vw;
+  min-height: 100vh;
+  // background-color: #f0f2f5;
+  padding-top: 15%;
+`;
+
+const Login = () => {
+  return (
+    <LoginLayout>
+      <div style={{ display: "flex", marginLeft: "auto", marginRight: "auto" }}>
+        <Introfacebook />
+        <Signin />
+      </div>
+    </LoginLayout>
+  );
 };
 
-
-Login.getInitialProps = async context => {
-  return { tag: context.query.tag };
-};
+export default Login;
