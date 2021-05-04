@@ -44,7 +44,7 @@ userRouter.post('/login', isNotLoggedIn, async (req, res, next) => {
             return next(authError);
         }
         if (!user) {
-            return res.sendStatus(500);
+            return res.sendStatus(400);
         }
         return req.login(user, (loginError) => {
             if (loginError) {
@@ -77,7 +77,7 @@ userRouter.post('/verify', async (req, res, next)=>{
         }
         res.sendStatus(200)
     }else {
-        res.status(204).json({message: "wrong code."})
+        res.status(400).json({message: "wrong code."})
     }
 })
 
@@ -87,7 +87,7 @@ userRouter.post('/find', isNotLoggedIn, async (req, res, next)=>{
     if (user){
         res.sendStatus(200)
     }else{
-        res.status(204).json({message: "user not found."})
+        res.status(400).json({message: "user not found."})
     }
 })
 
