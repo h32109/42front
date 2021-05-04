@@ -1,4 +1,5 @@
 const withBundleAnalyzer = require("@zeit/next-bundle-analyzer");
+// import withBundleAnalyzer from "@zeit/next-bundle-analyzer";
 
 module.exports = withBundleAnalyzer({
   distDir: ".next", // 빌드 파일을 저장할 디렉토리 (default: .next)
