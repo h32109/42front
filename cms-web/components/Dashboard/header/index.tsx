@@ -21,7 +21,7 @@ const Header = () => {
       <LogoAndSearch>
         <HeaderLogo>
           <img
-            src="/img/f_logo_RGB-Blue_250.png"
+            src="/images/f_logo_RGB-Blue_250.png"
             alt="Facebook"
             className={css`
               width: 42px;

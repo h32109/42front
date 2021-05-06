@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
-import AppDrawer from "components/body/appDrawer";
-import FriendDrawer from "components/body/friendDrawer";
+import AppDrawer from "components/Dashboard/body/appDrawer";
+import FriendDrawer from "components/Dashboard/body/friendDrawer";
 
 const Body = () => {
   return (
