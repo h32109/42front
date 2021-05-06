@@ -1,9 +1,8 @@
-
 import React from "react";
 import styled from "@emotion/styled";
 
-import Header from "components/header/index";
-import Body from "components/body";
+import Header from "components/Dashboard/header";
+import Body from "components/Dashboard/body";
 
 const dashboard = () => {
   return (
