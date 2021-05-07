@@ -44,7 +44,7 @@ const Signin = () => {
                 <input
                   className="form-control"
                   type="text"
-                  placeholder="Email or Phone Number"
+                  placeholder="이메일 또는 전화번호"
                   name="contact"
                   onChange={handleChange}
                   value={state.contact}
@@ -54,7 +54,7 @@ const Signin = () => {
                 <input
                   className="form-control"
                   type="password"
-                  placeholder="Password"
+                  placeholder="비밀번호"
                   name="password"
                   onChange={handleChange}
                   value={state.password}
@@ -67,7 +67,7 @@ const Signin = () => {
                   size="lg"
                   block
                 >
-                  Log In
+                  로그인
                 </Button>
               </Form.Group>
               <hr />
@@ -76,7 +76,7 @@ const Signin = () => {
                 className="btn btn-lg bg-fb-green"
                 onClick={handleCreateClick}
               >
-                Create New Account
+                새 계정 만들기
               </Button>
             </Form>
           </Card.Body>
