@@ -1,29 +1,27 @@
 import React, { useState } from "react";
 import { Card, Button, Form } from "react-bootstrap";
 import styled from "@emotion/styled";
-import SignupModal from "../SignupContainer";
+import SignupModal from "./SignupModal";
 
-export const Signinbox = styled.div`
+export const SignInBox = styled.div`
   text-align: center;
 `;
 
-export const Signincard = styled(Card)`
+export const SignInCard = styled(Card)`
   margin: 31% auto 20px auto;
   border-radius: 10px;
   color: yellow;
 `;
 
-export const Buttonlogin = styled(Button)`
+export const ButtonLogin = styled(Button)`
   background-color: #2677f2;
 `;
 
-const Signin = () => {
+const SignIn = () => {
   const [state, setState] = useState({ contact: "", password: "" });
   function handleChange(e) {
     const { name, value } = e.target;
     setState({ ...state, [name]: value });
-    // eslint-disable-next-line no-console
-    console.log(state);
   }
 
   const [showModal, setShowModal] = useState(false);
@@ -36,7 +34,7 @@ const Signin = () => {
 
   return (
     <>
-      <Signinbox>
+      <SignInBox>
         <Card>
           <Card.Body>
             <Form>
@@ -81,7 +79,7 @@ const Signin = () => {
             </Form>
           </Card.Body>
         </Card>
-      </Signinbox>
+      </SignInBox>
       <SignupModal show={showModal} toggleShow={toggleShow} />
     </>
   );
@@ -91,4 +89,4 @@ const Signin = () => {
 //   return { tag: context.query.tag };
 // };
 
-export default Signin;
+export default SignIn;

@@ -8,14 +8,30 @@ import passport from "passport";
 import connect from "./mongoose";
 import { graphqlHTTP } from "express-graphql";
 import schema from "./graphql/schema";
+import nunjucks from 'nunjucks'
 
 dotenv.config({ path: __dirname + "/.env" }); // .env 파일 읽기
+
+if (process.env.NODE_ENV === 'production') {
+    dotenv.config({ path: path.join(__dirname, '/.env.production') })
+} else {
+    dotenv.config({ path: path.join(__dirname, '/.env.develop') })
+}
+
 import router from "./routes";
+import userRouter from "./routes/auth";
+import mailRouter from "./routes/mail";
+
 import passportConfig from "./passport";
 
 const app = express(); // 서버 선언
 passportConfig();
-app.set("port", process.env.PORT || 3000); // application에 port 환경변수 설정하기
+app.set("port", process.env.PORT || 5000); // application에 port 환경변수 설정하기
+app.set('view engine', 'html');
+nunjucks.configure('views', {
+    express: app,
+    watch: true,
+});
 
 connect(); // mongoDB 연결
 
@@ -40,7 +56,7 @@ app.use(allowCrossDomain);
 app.use(morgan("dev")); // develop 형식으로 console log 남기기
 app.use(express.static(path.join(__dirname, "public"))); // static폴더 지정
 app.use(express.json()); // json파서 사용
-app.use(express.urlencoded({ extended: false })); // 동적 라우팅을 위한 urlencorder 사용
+app.use(express.urlencoded({ extended: true })); // www-form-data 파싱, form-data는 multer필요(사진, 이미지 등)
 app.use(cookieParser(process.env.COOKIE_SECRET)); // 쿠키파싱을 위한 쿠키파서 사용(파라미터에 쿠키 암호화 암호)
 app.use(
   session({
@@ -57,6 +73,9 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use("/", router);
+app.use("/user", userRouter);
+app.use("/mail", mailRouter)
+
 
 app.use(
   `/graphql`,

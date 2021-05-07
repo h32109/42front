@@ -19,7 +19,7 @@ export const Explanation = styled.h4`
   margin-top: 0;
 `;
 
-const Introfacebook = () => {
+const IntroFacebook = () => {
   return (
     <Intro>
       <Image
@@ -34,4 +34,4 @@ const Introfacebook = () => {
   );
 };
 
-export default Introfacebook;
+export default IntroFacebook;
