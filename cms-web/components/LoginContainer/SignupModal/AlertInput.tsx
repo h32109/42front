@@ -36,6 +36,7 @@ export const AlertInputStyle = css`
 `
 
 interface AlertInputProps {
+  name?: string;
   placeholder: string;
   tabIndex?: number;
   invalidCondition?: (value: string) => boolean; // check additional condition
@@ -47,6 +48,8 @@ const AlertInputOverlay: React.FC = () => {
 };
 
 const AlertInput: React.FC<AlertInputProps> = (props) => {
+  const { name, placeholder, tabIndex, invalidCondition } = props;
+
   const [showAlert, setShowAlert] = useState(false);
   const [showOverlay, setShowOverlay] = useState(false);
 
@@ -62,14 +65,14 @@ const AlertInput: React.FC<AlertInputProps> = (props) => {
 
     setShowOverlay(false);
     // if not value
-    if (!value || (props.invalidCondition && props.invalidCondition(value))) {
+    if (!value || (invalidCondition && invalidCondition(value))) {
       setShowAlert(true);
     }
   }
 
   return (
     <div css={AlertInputStyle} className={showAlert ? 'input-alert' : ''}>
-      <input placeholder={props.placeholder} type={'text'} aria-label={props.placeholder} onFocus={handleFocus} onBlur={handleBlur} tabIndex={props.tabIndex}/>
+      <input name={name} placeholder={placeholder} type={'text'} aria-label={placeholder} onFocus={handleFocus} onBlur={handleBlur} tabIndex={tabIndex}/>
       {
         showAlert &&
         <Icon path={mdiAlertCircle} color={"red"} size={'1.7em'}/>

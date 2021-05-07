@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 
-import React from "react";
+import React, { useRef } from "react";
 import AlertInput from "./AlertInput";
 import GenderContainer from "./GenderContainer";
 import BirthdayContainer from "./BirthdayContainer";
@@ -64,9 +64,24 @@ interface SignupModalProps {
   toggleShow: () => void;
 }
 
-const SignupModal: React.FC<SignupModalProps> = ({ show, toggleShow }) => {
+const SignupModal: React.FC<SignupModalProps> = ({
+  show,
+  toggleShow,
+}: SignupModalProps) => {
+  const formRef = useRef<HTMLFormElement>(null);
+
   const handleClose = () => {
     toggleShow();
+  };
+
+  const handleButtonClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    if (formRef.current) {
+      const formData = new FormData(formRef.current);
+      for (let pair of formData.entries()) {
+        console.log(pair);
+      }
+    }
   };
 
   return (
@@ -78,18 +93,20 @@ const SignupModal: React.FC<SignupModalProps> = ({ show, toggleShow }) => {
         </div>
       </ModalHeader>
       <ModalBody>
-        <form>
+        <form ref={formRef}>
           <div css={divStyle}>
             <div className="name-container">
-              <AlertInput placeholder="성(姓)" tabIndex={0} />
-              <AlertInput placeholder="이름(성은 제외)" />
+              <AlertInput name={"lastName"} placeholder="성(姓)" tabIndex={0} />
+              <AlertInput name={"firstName"} placeholder="이름(성은 제외)" />
             </div>
-            <AlertInput placeholder="휴대폰 번호 또는 이메일" />
-            <AlertInput placeholder="새 비밀번호" />
+            <AlertInput name={"email"} placeholder="휴대폰 번호 또는 이메일" />
+            <AlertInput name={"password"} placeholder="새 비밀번호" />
             <BirthdayContainer />
             <GenderContainer />
             <div className={"submit-button-container"}>
-              <button type="submit">가입하기</button>
+              <button type="button" onClick={handleButtonClick}>
+                가입하기
+              </button>
             </div>
           </div>
         </form>
