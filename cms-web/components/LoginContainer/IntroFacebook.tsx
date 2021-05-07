@@ -28,8 +28,8 @@ const IntroFacebook = () => {
         width={"400px"}
         layout={"intrinsic"}
       />
-      <Explanation>Connect with friends and the</Explanation>
-      <Explanation>world around you on Facebook.</Explanation>
+      <Explanation>Facebook에서 전세계에 있는 친구, 가</Explanation>
+      <Explanation>족, 지인들과 함께 이야기를 나눠보세요</Explanation>
     </Intro>
   );
 };
