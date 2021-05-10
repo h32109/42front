@@ -5,6 +5,7 @@ import React, { ChangeEvent, useState } from "react";
 import Icon from "@mdi/react";
 import { mdiAlertCircle } from "@mdi/js";
 import CustomGenderContainer from "./CustomGenderContainer";
+import { Gender, SignUpInputName } from "../../../constant/SignUp";
 
 const divStyle = css`
   .gender-header {
@@ -27,6 +28,10 @@ const divStyle = css`
       display: flex;
       align-items: center;
 
+      &.alert-border {
+        border-color: red;
+      }
+
       span {
         flex: 8;
       }
@@ -42,17 +47,24 @@ const divStyle = css`
   }
 `;
 
-enum Gender {
-  Male = "1",
-  Female = "2",
-  Custom = "-1",
+interface GenderContainerProps {
+  showAlert: boolean;
+  setShowAlert: (value: boolean) => void;
+  showCustomAlert: boolean;
+  setShowCustomAlert: (value: boolean) => void;
 }
 
-const GenderContainer: React.FC = () => {
-  const [showAlert, setShowAlert] = useState(false);
+const GenderContainer: React.FC<GenderContainerProps> = props => {
+  const {
+    showAlert,
+    setShowAlert,
+    showCustomAlert,
+    setShowCustomAlert,
+  } = props;
   const [showCustom, setShowCustom] = useState(false);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setShowAlert(false);
     if (e.target.value === Gender.Custom) {
       setShowCustom(true);
     } else {
@@ -72,20 +84,40 @@ const GenderContainer: React.FC = () => {
         )}
       </div>
       <span className={"gender-list"} onChange={handleChange}>
-        <label htmlFor="female">
+        <label htmlFor="female" className={showAlert ? "alert-border" : ""}>
           <span>여성</span>
-          <input id="female" type="radio" name="gender" value={Gender.Male} />
+          <input
+            id="female"
+            type="radio"
+            name={SignUpInputName.Gender}
+            value={Gender.Male}
+          />
         </label>
-        <label htmlFor="male">
+        <label htmlFor="male" className={showAlert ? "alert-border" : ""}>
           <span>남성</span>
-          <input id="male" type="radio" name="gender" value={Gender.Female} />
+          <input
+            id="male"
+            type="radio"
+            name={SignUpInputName.Gender}
+            value={Gender.Female}
+          />
         </label>
-        <label htmlFor="custom">
+        <label htmlFor="custom" className={showAlert ? "alert-border" : ""}>
           <span>직접 지정</span>
-          <input id="custom" type="radio" name="gender" value={Gender.Custom} />
+          <input
+            id="custom"
+            type="radio"
+            name={SignUpInputName.Gender}
+            value={Gender.Custom}
+          />
         </label>
       </span>
-      {showCustom && <CustomGenderContainer />}
+      {showCustom && (
+        <CustomGenderContainer
+          showAlert={showCustomAlert}
+          setShowAlert={setShowCustomAlert}
+        />
+      )}
     </div>
   );
 };

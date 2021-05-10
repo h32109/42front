@@ -1,9 +1,10 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useMemo, useRef } from "react";
 import Icon from "@mdi/react";
 import { mdiAlertCircle } from "@mdi/js";
+import { SignUpInputName } from "../../../constant/SignUp";
 
 const divStyle = css`
   .date-header {
@@ -25,8 +26,8 @@ const divStyle = css`
       overflow: hidden;
       padding-left: 8px;
 
-      &.alert {
-        border: 1px solid red;
+      &.alert-border {
+        border-color: red;
       }
 
       &:not(:first-of-type) {
@@ -36,8 +37,14 @@ const divStyle = css`
   }
 `;
 
-const BirthdayContainer: React.FC = () => {
-  const [showAlert, setShowAlert] = useState(false);
+interface BirthdayContainerProps {
+  showAlert: boolean;
+  setShowAlert: (value: boolean) => void;
+  invalidCondition: (year: number, month: number, day: number) => boolean; // check additional condition
+}
+
+const BirthdayContainer: React.FC<BirthdayContainerProps> = props => {
+  const { showAlert, setShowAlert, invalidCondition } = props;
 
   const yearRef = useRef<HTMLSelectElement>(null);
   const monthRef = useRef<HTMLSelectElement>(null);
@@ -48,16 +55,16 @@ const BirthdayContainer: React.FC = () => {
   const yearList = useMemo(() => {
     const start = 1904;
     const end = date.getFullYear();
-    return Array.from({ length: end - start }, (_, k) => `${start + k + 1}년`);
+    return Array.from({ length: end - start }, (_, k) => start + k + 1);
   }, []);
 
   const monthList = useMemo(
-    () => Array.from({ length: 12 }, (_, k) => `${k + 1}월`),
+    () => Array.from({ length: 12 }, (_, k) => k + 1),
     [],
   );
 
   const dayList = useMemo(
-    () => Array.from({ length: 31 }, (_, k) => `${k + 1}일`),
+    () => Array.from({ length: 31 }, (_, k) => k + 1),
     [],
   );
 
@@ -67,7 +74,7 @@ const BirthdayContainer: React.FC = () => {
 
   const handleBlur = () => {
     //TODO: invalid check
-    if (yearRef.current.value === "2021년") {
+    if (invalidCondition) {
       setShowAlert(true);
     }
   };
@@ -85,8 +92,10 @@ const BirthdayContainer: React.FC = () => {
       </div>
       <span className="date-container">
         <select
+          className={showAlert ? "alert-border" : ""}
+          name={SignUpInputName.Birthday_Year}
           ref={yearRef}
-          defaultValue={`${date.getFullYear()}년`}
+          defaultValue={date.getFullYear()}
           onFocus={handleFocus}
           onBlur={handleBlur}
         >
@@ -95,13 +104,15 @@ const BirthdayContainer: React.FC = () => {
           </option>
           {yearList.map(y => (
             <option value={y} key={y}>
-              {y}
+              {`${y}년`}
             </option>
           ))}
         </select>
         <select
+          className={showAlert ? "alert-border" : ""}
+          name={SignUpInputName.Birthday_Month}
           ref={monthRef}
-          defaultValue={`${date.getMonth() + 1}월`}
+          defaultValue={date.getMonth() + 1}
           onFocus={handleFocus}
           onBlur={handleBlur}
         >
@@ -110,13 +121,15 @@ const BirthdayContainer: React.FC = () => {
           </option>
           {monthList.map(m => (
             <option value={m} key={m}>
-              {m}
+              {`${m}월`}
             </option>
           ))}
         </select>
         <select
+          className={showAlert ? "alert-border" : ""}
+          name={SignUpInputName.Birthday_Day}
           ref={dayRef}
-          defaultValue={`${date.getDate()}일`}
+          defaultValue={date.getDate()}
           onFocus={handleFocus}
           onBlur={handleBlur}
         >
@@ -125,7 +138,7 @@ const BirthdayContainer: React.FC = () => {
           </option>
           {dayList.map(d => (
             <option value={d} key={d}>
-              {d}
+              {`${d}일`}
             </option>
           ))}
         </select>

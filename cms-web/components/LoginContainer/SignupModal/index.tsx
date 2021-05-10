@@ -1,12 +1,13 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import AlertInput from "./AlertInput";
 import GenderContainer from "./GenderContainer";
 import BirthdayContainer from "./BirthdayContainer";
 import { Modal, ModalBody } from "react-bootstrap";
 import ModalHeader from "react-bootstrap/ModalHeader";
+import { Gender, SignUpInputName } from "../../../constant/SignUp";
 
 const modalHeader = css`
   display: flex;
@@ -68,18 +69,87 @@ const SignupModal: React.FC<SignupModalProps> = ({
   show,
   toggleShow,
 }: SignupModalProps) => {
+  const [lastNameAlert, setLastNameAlert] = useState(false);
+  const [firstNameAlert, setFirstNameAlert] = useState(false);
+  const [emailAlert, setEmailAlert] = useState(false);
+  const [passwordAlert, setPasswordAlert] = useState(false);
+  const [birthdayAlert, setBirthdayAlert] = useState(false);
+  const [genderAlert, setGenderAlert] = useState(false);
+  const [preferredPronounAlert, setPreferredPronounAlert] = useState(false);
+
+  const resetAlert = () => {
+    setLastNameAlert(false);
+    setFirstNameAlert(false);
+    setEmailAlert(false);
+    setPasswordAlert(false);
+    setBirthdayAlert(false);
+    setGenderAlert(false);
+    setPreferredPronounAlert(false);
+  };
+
   const formRef = useRef<HTMLFormElement>(null);
 
   const handleClose = () => {
     toggleShow();
   };
 
+  const birthdayInvalidCondition = (
+    year: number,
+    month: number,
+    day: number,
+  ) => {
+    return year === 2021;
+  };
+
   const handleButtonClick = (e: React.MouseEvent) => {
     e.preventDefault();
     if (formRef.current) {
       const formData = new FormData(formRef.current);
-      for (let pair of formData.entries()) {
-        console.log(pair);
+
+      const lastName = formData.get(SignUpInputName.LastName);
+      const firstName = formData.get(SignUpInputName.FirstName);
+      const email = formData.get(SignUpInputName.Email);
+      const password = formData.get(SignUpInputName.Password);
+      const day = +formData.get(SignUpInputName.Birthday_Day);
+      const month = +formData.get(SignUpInputName.Birthday_Month);
+      const year = +formData.get(SignUpInputName.Birthday_Year);
+      const gender = formData.get(SignUpInputName.Gender);
+      const preferredPronoun = formData.get(SignUpInputName.PreferredPronoun);
+      const customGender = formData.get(SignUpInputName.CustomGender);
+
+      resetAlert();
+
+      let invalid = false;
+      if (!lastName) {
+        setLastNameAlert(true);
+        invalid = true;
+      }
+      if (!firstName) {
+        setFirstNameAlert(true);
+        invalid = true;
+      }
+      if (!email) {
+        setEmailAlert(true);
+        invalid = true;
+      }
+      if (!password) {
+        setPasswordAlert(true);
+        invalid = true;
+      }
+      if (birthdayInvalidCondition(year, month, day)) {
+        setBirthdayAlert(true);
+        invalid = true;
+      }
+      if (!gender) {
+        setGenderAlert(true);
+        invalid = true;
+      } else if (gender === Gender.Custom && !preferredPronoun) {
+        setPreferredPronounAlert(true);
+        invalid = true;
+      }
+
+      if (invalid) {
+        return;
       }
     }
   };
@@ -96,13 +166,43 @@ const SignupModal: React.FC<SignupModalProps> = ({
         <form ref={formRef}>
           <div css={divStyle}>
             <div className="name-container">
-              <AlertInput name={"lastName"} placeholder="성(姓)" tabIndex={0} />
-              <AlertInput name={"firstName"} placeholder="이름(성은 제외)" />
+              <AlertInput
+                name={SignUpInputName.LastName}
+                placeholder="성(姓)"
+                tabIndex={0}
+                showAlert={lastNameAlert}
+                setShowAlert={setLastNameAlert}
+              />
+              <AlertInput
+                name={SignUpInputName.FirstName}
+                placeholder="이름(성은 제외)"
+                showAlert={firstNameAlert}
+                setShowAlert={setFirstNameAlert}
+              />
             </div>
-            <AlertInput name={"email"} placeholder="휴대폰 번호 또는 이메일" />
-            <AlertInput name={"password"} placeholder="새 비밀번호" />
-            <BirthdayContainer />
-            <GenderContainer />
+            <AlertInput
+              name={SignUpInputName.Email}
+              placeholder="휴대폰 번호 또는 이메일"
+              showAlert={emailAlert}
+              setShowAlert={setEmailAlert}
+            />
+            <AlertInput
+              name={SignUpInputName.Password}
+              placeholder="새 비밀번호"
+              showAlert={passwordAlert}
+              setShowAlert={setPasswordAlert}
+            />
+            <BirthdayContainer
+              showAlert={birthdayAlert}
+              setShowAlert={setBirthdayAlert}
+              invalidCondition={birthdayInvalidCondition}
+            />
+            <GenderContainer
+              showAlert={genderAlert}
+              setShowAlert={setGenderAlert}
+              showCustomAlert={preferredPronounAlert}
+              setShowCustomAlert={setPreferredPronounAlert}
+            />
             <div className={"submit-button-container"}>
               <button type="button" onClick={handleButtonClick}>
                 가입하기

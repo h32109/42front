@@ -39,6 +39,8 @@ interface AlertInputProps {
   name?: string;
   placeholder: string;
   tabIndex?: number;
+  showAlert: boolean;
+  setShowAlert: (value: boolean) => void;
   invalidCondition?: (value: string) => boolean; // check additional condition
 }
 
@@ -48,9 +50,7 @@ const AlertInputOverlay: React.FC = () => {
 };
 
 const AlertInput: React.FC<AlertInputProps> = (props) => {
-  const { name, placeholder, tabIndex, invalidCondition } = props;
-
-  const [showAlert, setShowAlert] = useState(false);
+  const { name, placeholder, tabIndex, invalidCondition, showAlert, setShowAlert } = props;
   const [showOverlay, setShowOverlay] = useState(false);
 
   const handleFocus = (e: React.FocusEvent) => {
