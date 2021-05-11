@@ -58,24 +58,19 @@ const BirthdayContainer: React.FC<BirthdayContainerProps> = props => {
     return Array.from({ length: end - start }, (_, k) => start + k + 1);
   }, []);
 
-  const monthList = useMemo(
-    () => Array.from({ length: 12 }, (_, k) => k + 1),
-    [],
-  );
+  const monthList = useMemo(() => Array.from({ length: 12 }, (_, k) => k + 1), []);
 
-  const dayList = useMemo(
-    () => Array.from({ length: 31 }, (_, k) => k + 1),
-    [],
-  );
+  const dayList = useMemo(() => Array.from({ length: 31 }, (_, k) => k + 1), []);
 
   const handleFocus = () => {
     setShowAlert(false);
   };
 
   const handleBlur = () => {
-    //TODO: invalid check
-    if (invalidCondition) {
+    if (invalidCondition(+yearRef.current.value, +monthRef.current.value, +dayRef.current.value)) {
       setShowAlert(true);
+    } else {
+      setShowAlert(false);
     }
   };
 
@@ -86,9 +81,7 @@ const BirthdayContainer: React.FC<BirthdayContainerProps> = props => {
           생일
           <i />
         </div>
-        {showAlert && (
-          <Icon path={mdiAlertCircle} color={"red"} size={"1.7em"} />
-        )}
+        {showAlert && <Icon path={mdiAlertCircle} color={"red"} size={"1.7em"} />}
       </div>
       <span className="date-container">
         <select

@@ -8,6 +8,7 @@ import BirthdayContainer from "./BirthdayContainer";
 import { Modal, ModalBody } from "react-bootstrap";
 import ModalHeader from "react-bootstrap/ModalHeader";
 import { Gender, SignUpInputName } from "../../../constant/SignUp";
+import AuthRepository from "../../../api/rest/AuthRepository";
 
 const modalHeader = css`
   display: flex;
@@ -65,10 +66,7 @@ interface SignupModalProps {
   toggleShow: () => void;
 }
 
-const SignupModal: React.FC<SignupModalProps> = ({
-  show,
-  toggleShow,
-}: SignupModalProps) => {
+const SignupModal: React.FC<SignupModalProps> = ({ show, toggleShow }: SignupModalProps) => {
   const [lastNameAlert, setLastNameAlert] = useState(false);
   const [firstNameAlert, setFirstNameAlert] = useState(false);
   const [emailAlert, setEmailAlert] = useState(false);
@@ -93,12 +91,8 @@ const SignupModal: React.FC<SignupModalProps> = ({
     toggleShow();
   };
 
-  const birthdayInvalidCondition = (
-    year: number,
-    month: number,
-    day: number,
-  ) => {
-    return year === 2021;
+  const birthdayInvalidCondition = (year: number, month: number, day: number) => {
+    return year > 2016;
   };
 
   const handleButtonClick = (e: React.MouseEvent) => {
@@ -151,6 +145,21 @@ const SignupModal: React.FC<SignupModalProps> = ({
       if (invalid) {
         return;
       }
+
+      AuthRepository.assignUser({
+        lastName: lastName.toString(),
+        firstName: firstName.toString(),
+        identifier: "id",
+        password: password.toString(),
+        birthday: new Date(year, month - 1, day),
+        gender: gender.toString(),
+      })
+        .then(() => {
+          console.log("success");
+        })
+        .catch(err => {
+          console.log(err);
+        });
     }
   };
 
