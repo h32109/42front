@@ -3,14 +3,16 @@ import { css } from "@emotion/react";
 
 import AppDrawer from "components/Dashboard/body/appDrawer";
 import FriendDrawer from "components/Dashboard/body/friendDrawer";
-import PostMaker from "components/Dashboard/body/postMaker";
-import Story from "./Story";
+import FeedMaker from "components/Dashboard/body/feedMaker";
+import Story from "components/Dashboard/body/Story";
+import Feed from "components/Dashboard/body/Feed";
 
 const bodyCss = css`
   display: flex;
   justify-content: space-between;
   height: 94%;
   width: 100%;
+  overflow: auto;
 
   background-color: rgb(240, 242, 245);
 
@@ -23,8 +25,8 @@ const bodyCss = css`
     .stories {
       display: flex;
       justify-content: space-between;
-      margin-top: 8px;
       height: 221px;
+      padding: 8px 0 24px 0;
     }
   }
 `;
@@ -42,7 +44,8 @@ const Body = () => {
           <Story />
           <Story />
         </div>
-        <PostMaker />
+        <FeedMaker />
+        <Feed />
       </div>
       <FriendDrawer />
     </section>

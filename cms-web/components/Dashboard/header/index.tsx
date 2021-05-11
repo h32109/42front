@@ -77,8 +77,10 @@ const HeaderDiv = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+
   height: 56px;
   width: 100%;
+  background-color: #fff;
   box-shadow: 0 2px 2px rgba(0, 0, 0, 0.15);
   z-index: 1;
 `;

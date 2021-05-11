@@ -5,18 +5,19 @@ import React from "react";
 import Icon from "@mdi/react";
 import { mdiVideo, mdiImageMultiple, mdiEmoticonOutline } from "@mdi/js";
 
-const postMaker = css`
+const feedMaker = css`
   display: flex;
   flex-direction: column;
   width: 100%;
   height: 123px;
   background-color: rgb(255, 255, 255);
   border-radius: 10px;
+  margin-bottom: 16px;
 
   padding: 12px 16px 10px 16px;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 
-  .make-post {
+  .make-feed {
     display: flex;
     width: 100%;
     height: 40px;
@@ -24,7 +25,7 @@ const postMaker = css`
     .user-avatar {
       width: 40px;
       height: 40px;
-      border-radius: 50%;
+      border-radius: 100%;
       margin-right: 8px;
 
       background-color: lightpink;
@@ -47,7 +48,7 @@ const postMaker = css`
     }
   }
 
-  .post-options {
+  .feed-options {
     display: flex;
     margin-top: 12px;
     border-top: 1px solid #e5e5e5;
@@ -78,14 +79,14 @@ const postMaker = css`
   }
 `;
 
-const PostMaker = () => {
+const FeedMaker = () => {
   return (
-    <article css={postMaker}>
-      <div className="make-post">
+    <article css={feedMaker}>
+      <div className="make-feed">
         <div className="user-avatar"></div>
         <div className="input-box">유저님, 무슨 생각을 하고 계신가요?</div>
       </div>
-      <div className="post-options">
+      <div className="feed-options">
         <div className="option">
           <Icon
             className="icon"
@@ -118,4 +119,4 @@ const PostMaker = () => {
   );
 };
 
-export default PostMaker;
+export default FeedMaker;
