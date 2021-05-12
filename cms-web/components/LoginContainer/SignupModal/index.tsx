@@ -9,6 +9,7 @@ import { Modal, ModalBody } from "react-bootstrap";
 import ModalHeader from "react-bootstrap/ModalHeader";
 import { Gender, SignUpInputName } from "../../../constant/SignUp";
 import AuthRepository from "../../../api/rest/AuthRepository";
+import { useRouter } from "next/router";
 
 const modalHeader = css`
   display: flex;
@@ -67,9 +68,11 @@ interface SignupModalProps {
 }
 
 const SignupModal: React.FC<SignupModalProps> = ({ show, toggleShow }: SignupModalProps) => {
+  const router = useRouter();
+
   const [lastNameAlert, setLastNameAlert] = useState(false);
   const [firstNameAlert, setFirstNameAlert] = useState(false);
-  const [emailAlert, setEmailAlert] = useState(false);
+  const [emailOrPhoneAlert, setEmailOrPhoneAlert] = useState(false);
   const [passwordAlert, setPasswordAlert] = useState(false);
   const [birthdayAlert, setBirthdayAlert] = useState(false);
   const [genderAlert, setGenderAlert] = useState(false);
@@ -78,7 +81,7 @@ const SignupModal: React.FC<SignupModalProps> = ({ show, toggleShow }: SignupMod
   const resetAlert = () => {
     setLastNameAlert(false);
     setFirstNameAlert(false);
-    setEmailAlert(false);
+    setEmailOrPhoneAlert(false);
     setPasswordAlert(false);
     setBirthdayAlert(false);
     setGenderAlert(false);
@@ -102,7 +105,7 @@ const SignupModal: React.FC<SignupModalProps> = ({ show, toggleShow }: SignupMod
 
       const lastName = formData.get(SignUpInputName.LastName);
       const firstName = formData.get(SignUpInputName.FirstName);
-      const email = formData.get(SignUpInputName.Email);
+      const emailOrPhone = formData.get(SignUpInputName.EmailOrPhone);
       const password = formData.get(SignUpInputName.Password);
       const day = +formData.get(SignUpInputName.Birthday_Day);
       const month = +formData.get(SignUpInputName.Birthday_Month);
@@ -122,8 +125,8 @@ const SignupModal: React.FC<SignupModalProps> = ({ show, toggleShow }: SignupMod
         setFirstNameAlert(true);
         invalid = true;
       }
-      if (!email) {
-        setEmailAlert(true);
+      if (!emailOrPhone) {
+        setEmailOrPhoneAlert(true);
         invalid = true;
       }
       if (!password) {
@@ -149,13 +152,14 @@ const SignupModal: React.FC<SignupModalProps> = ({ show, toggleShow }: SignupMod
       AuthRepository.assignUser({
         lastName: lastName.toString(),
         firstName: firstName.toString(),
-        identifier: "id",
+        identifier: emailOrPhone.toString(),
         password: password.toString(),
         birthday: new Date(year, month - 1, day),
         gender: gender.toString(),
       })
         .then(() => {
           console.log("success");
+          router.push("/auth");
         })
         .catch(err => {
           console.log(err);
@@ -190,10 +194,10 @@ const SignupModal: React.FC<SignupModalProps> = ({ show, toggleShow }: SignupMod
               />
             </div>
             <AlertInput
-              name={SignUpInputName.Email}
+              name={SignUpInputName.EmailOrPhone}
               placeholder="휴대폰 번호 또는 이메일"
-              showAlert={emailAlert}
-              setShowAlert={setEmailAlert}
+              showAlert={emailOrPhoneAlert}
+              setShowAlert={setEmailOrPhoneAlert}
             />
             <AlertInput
               name={SignUpInputName.Password}

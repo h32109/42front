@@ -1,7 +1,7 @@
 export enum SignUpInputName {
   LastName = "lastName",
   FirstName = "firstName",
-  Email = "email",
+  EmailOrPhone = "emailOrPhone",
   Password = "password",
   Birthday_Year = "birthYear",
   Birthday_Month = "birthMonth",
@@ -12,9 +12,9 @@ export enum SignUpInputName {
 }
 
 export enum Gender {
-  Male = "1",
-  Female = "2",
-  Custom = "-1",
+  Male = "Male",
+  Female = "Female",
+  Custom = "Unspecified",
 }
 
 export enum PreferredPronoun {

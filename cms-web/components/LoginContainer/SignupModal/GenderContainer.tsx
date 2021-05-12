@@ -55,12 +55,7 @@ interface GenderContainerProps {
 }
 
 const GenderContainer: React.FC<GenderContainerProps> = props => {
-  const {
-    showAlert,
-    setShowAlert,
-    showCustomAlert,
-    setShowCustomAlert,
-  } = props;
+  const { showAlert, setShowAlert, showCustomAlert, setShowCustomAlert } = props;
   const [showCustom, setShowCustom] = useState(false);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -79,45 +74,23 @@ const GenderContainer: React.FC<GenderContainerProps> = props => {
           성별
           <i />
         </div>
-        {showAlert && (
-          <Icon path={mdiAlertCircle} color={"red"} size={"1.7em"} />
-        )}
+        {showAlert && <Icon path={mdiAlertCircle} color={"red"} size={"1.7em"} />}
       </div>
       <span className={"gender-list"} onChange={handleChange}>
         <label htmlFor="female" className={showAlert ? "alert-border" : ""}>
           <span>여성</span>
-          <input
-            id="female"
-            type="radio"
-            name={SignUpInputName.Gender}
-            value={Gender.Male}
-          />
+          <input id="female" type="radio" name={SignUpInputName.Gender} value={Gender.Male} />
         </label>
         <label htmlFor="male" className={showAlert ? "alert-border" : ""}>
           <span>남성</span>
-          <input
-            id="male"
-            type="radio"
-            name={SignUpInputName.Gender}
-            value={Gender.Female}
-          />
+          <input id="male" type="radio" name={SignUpInputName.Gender} value={Gender.Female} />
         </label>
         <label htmlFor="custom" className={showAlert ? "alert-border" : ""}>
           <span>직접 지정</span>
-          <input
-            id="custom"
-            type="radio"
-            name={SignUpInputName.Gender}
-            value={Gender.Custom}
-          />
+          <input id="custom" type="radio" name={SignUpInputName.Gender} value={Gender.Custom} />
         </label>
       </span>
-      {showCustom && (
-        <CustomGenderContainer
-          showAlert={showCustomAlert}
-          setShowAlert={setShowCustomAlert}
-        />
-      )}
+      {showCustom && <CustomGenderContainer showAlert={showCustomAlert} setShowAlert={setShowCustomAlert} />}
     </div>
   );
 };

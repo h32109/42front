@@ -5,8 +5,8 @@ export default class BaseRepository {
 
   constructor() {
     this.instance = axios.create({
-      baseURL: "http://localhost:2000",
-      headers: { token: "token" },
+      baseURL: "http://localhost:5000",
+      // headers: { token: "token" },
     });
   }
 }
