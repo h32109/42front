@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { Card, Button, Form } from "react-bootstrap";
 import styled from "@emotion/styled";
 import SignupModal from "./SignupModal";
-
+import SigninRepository from "../../api/rest/SigninRespository";
+import { useRouter } from "next/router";
 export const SignInBox = styled.div`
   text-align: center;
 `;
@@ -19,9 +20,11 @@ export const ButtonLogin = styled(Button)`
 
 const SignIn = () => {
   const [state, setState] = useState({ contact: "", password: "" });
+  const router = useRouter();
   function handleChange(e) {
     const { name, value } = e.target;
     setState({ ...state, [name]: value });
+    // console.log(state);
   }
 
   const [showModal, setShowModal] = useState(false);
@@ -29,7 +32,19 @@ const SignIn = () => {
     setShowModal(prev => !prev);
   };
   const handleCreateClick = (e: React.MouseEvent) => {
-    setShowModal(true);
+    e.preventDefault();
+    console.log("Hi");
+    let contact = document.getElementsByName("contact");
+    let pass = document.getElementsByName("password");
+    let params = { email: contact, password: pass };
+    SigninRepository.login(params)
+      .then(() => {
+        console.log("success");
+        router.push("/dashboard");
+      })
+      .catch(err => {
+        console.log(err);
+      });
   };
 
   return (
@@ -37,7 +52,7 @@ const SignIn = () => {
       <SignInBox>
         <Card>
           <Card.Body>
-            <Form>
+            <Form onSubmit={handleCreateClick}>
               <Form.Group>
                 <input
                   className="form-control"
@@ -63,6 +78,7 @@ const SignIn = () => {
                   variant="primary"
                   className="bg-fb-blue"
                   size="lg"
+                  type="submit"
                   block
                 >
                   로그인
@@ -72,7 +88,7 @@ const SignIn = () => {
               <Button
                 variant="success"
                 className="btn btn-lg bg-fb-green"
-                onClick={handleCreateClick}
+                // onClick={handleCreateClick}
               >
                 새 계정 만들기
               </Button>
