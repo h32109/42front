@@ -25,7 +25,8 @@ const userSchema = new Schema({
     },
     isEmail: {
         type: Boolean,
-        require: true
+        require: true,
+        default: true
     }
 })
 

@@ -7,9 +7,9 @@ export default () => {
     done(null, user.id);
   });
 
-  passport.deserializeUser((id, done) => {
+  passport.deserializeUser((identifier, done) => {
     User.findOne({
-      where: { id },
+      where: { identifier },
     })
       .then((user) => done(null, user))
       .catch((err) => done(err));

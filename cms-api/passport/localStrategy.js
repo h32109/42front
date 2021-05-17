@@ -13,7 +13,7 @@ export default () => {
       },
       async (identifier, password, done) => {
         try {
-          const exUser = await User.findOne({ where: { identifier: identifier } });
+          const exUser = await User.findOne({identifier});
           if (exUser) {
             const result = await bcrypt.compare(password, exUser.password);
             if (result) {
