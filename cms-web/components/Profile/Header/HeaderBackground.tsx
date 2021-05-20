@@ -10,7 +10,8 @@ import { css } from "@emotion/react";
 
 const HeaderBackgroundWrapper = css`
   position: relative;
-  height: 360px;
+  max-height: 460px;
+  height: 50vh;
   background-color: gray;
   background: linear-gradient(#f0f2f5, 85%, #6e6f70);
   border-bottom-right-radius: 10px;
@@ -41,7 +42,9 @@ const HeaderBackground: React.FC = () => {
 
   const handleButtonClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     console.log("click add cover image", e.currentTarget);
-    setBackgroundImg(backgroundImg === "" ? "/images/test.png" : "");
+    setBackgroundImg(
+      backgroundImg === undefined ? "/images/test.png" : undefined,
+    );
   };
 
   return (

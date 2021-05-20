@@ -138,7 +138,7 @@ const CommonButtonWrapper = css`
     display: flex;
     justify-content: flex-end;
 
-    button:first-child {
+    button:first-of-type {
       margin-right: 10px;
     }
   }

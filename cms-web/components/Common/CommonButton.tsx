@@ -17,6 +17,7 @@ const DynamicStyle = props => css`
   background-color: ${props.theme.bgColor};
   color: ${props.theme.ftColor};
   width: ${props.theme.width};
+  height: ${props.theme.height};
 `;
 
 const CommonButtonStyle = styled.button`
@@ -40,12 +41,12 @@ interface ICommonButtonProps {
   children: React.ReactNode;
   theme?: TTheme;
   width?: string;
-  font?: string;
+  height?: string;
   onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 const CommonButton = (props: ICommonButtonProps) => {
-  const { children, theme, width, onClick } = props;
+  const { children, theme, width, height, onClick } = props;
 
   const bgColor: string = useMemo(() => {
     if (theme === "main") return FBmain;
@@ -67,7 +68,12 @@ const CommonButton = (props: ICommonButtonProps) => {
     <CommonButtonStyle
       type="button"
       className={[`common-btn`].join(" ")}
-      theme={{ bgColor: bgColor, width: width, ftColor: ftColor }}
+      theme={{
+        bgColor: bgColor,
+        width: width,
+        ftColor: ftColor,
+        height: height,
+      }}
       onClick={(e: React.MouseEvent<HTMLButtonElement>) => onClick(e)}
     >
       {children}

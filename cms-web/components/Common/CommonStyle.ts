@@ -3,6 +3,7 @@ const FBsuccess = "#28a745";
 const FBlight = "#ffffff";
 const FBdark = "#050505";
 const FBsecondary = "#e4e6eb";
+const FBdarkgray = "#65676b";
 
 const ftXXXLarge = "30px";
 const ftXLarge = "18px";
@@ -17,6 +18,7 @@ export {
   FBlight,
   FBdark,
   FBsecondary,
+  FBdarkgray,
   ftXXXLarge,
   ftXLarge,
   ftLarge,
