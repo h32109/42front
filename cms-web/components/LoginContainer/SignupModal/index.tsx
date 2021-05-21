@@ -117,8 +117,10 @@ const SignupModal: React.FC<SignupModalProps> = ({ show, toggleShow }: SignupMod
       resetAlert();
 
       let invalid = false;
+      console.log(invalid);
       if (!lastName) {
         setLastNameAlert(true);
+        console.log(lastName);
         invalid = true;
       }
       if (!firstName) {

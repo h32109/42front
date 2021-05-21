@@ -1,9 +1,11 @@
-import BaseRepository from "./BaseRepository";
-import {loginUser} from "../../models/user";
+import BaseAuthRepository from "./BaseRepository";
+import { loginUser } from "../../models/user";
+import axios from "axios";
 
-class SigninRepository extends BaseRepository {
+class SigninRepository extends BaseAuthRepository {
   login(params: loginUser) {
-    return this.instance.post("/login", params);
+    console.log(params);
+    return this.instance.post("/user/login", params);
   }
 }
 

@@ -19,34 +19,42 @@ export const ButtonLogin = styled(Button)`
 `;
 
 const SignIn = () => {
-  const [state, setState] = useState({ contact: "", password: "" });
+  const [state, setState] = useState({ identifier: "", password: "" });
   const router = useRouter();
   function handleChange(e) {
     const { name, value } = e.target;
     setState({ ...state, [name]: value });
-    // console.log(state);
   }
 
   const [showModal, setShowModal] = useState(false);
   const toggleShow = () => {
     setShowModal(prev => !prev);
   };
-  const handleCreateClick = (e: React.MouseEvent) => {
+
+  const handleCreateClick = (e: any) => {
     e.preventDefault();
-    console.log("Hi");
-    let contact = document.getElementsByName("contact");
-    let pass = document.getElementsByName("password");
-    let params = { email: contact, password: pass };
-    SigninRepository.login(params)
+    let invalid = false;
+    if (!state.identifier) {
+      invalid = true;
+    }
+    if (!state.password) {
+      invalid = true;
+    }
+
+    if (invalid) {
+      return;
+    }
+    console.log(state);
+    SigninRepository.login(state)
       .then(() => {
-        console.log("success");
         router.push("/dashboard");
       })
       .catch(err => {
+        alert(err);
+        router.push("/login");
         console.log(err);
       });
   };
-
   return (
     <>
       <SignInBox>
@@ -58,9 +66,9 @@ const SignIn = () => {
                   className="form-control"
                   type="text"
                   placeholder="이메일 또는 전화번호"
-                  name="contact"
+                  name="identifier"
                   onChange={handleChange}
-                  value={state.contact}
+                  value={state.identifier}
                 />
               </Form.Group>
               <Form.Group>
@@ -88,7 +96,7 @@ const SignIn = () => {
               <Button
                 variant="success"
                 className="btn btn-lg bg-fb-green"
-                // onClick={handleCreateClick}
+                onClick={handleCreateClick}
               >
                 새 계정 만들기
               </Button>

@@ -15,8 +15,8 @@ type User = {
 };
 
 export interface loginUser {
-  email: NodeListOf<HTMLElement>;
-  password: NodeListOf<HTMLElement>;
+  identifier: string;
+  password: string;
 }
 
 export default User;
