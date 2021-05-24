@@ -8,7 +8,7 @@ export const Intro = styled.div`
   & > h4 {
     font-size: 1.7em;
   }
-
+  margin-right: 10%;
   & > img {
     margin: -28px;
   }

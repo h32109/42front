@@ -14,4 +14,9 @@ type User = {
   password: string;
 };
 
+export interface loginUser {
+  identifier: string;
+  password: string;
+}
+
 export default User;
