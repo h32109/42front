@@ -2,54 +2,66 @@ import mongoose from "mongoose";
 
 const { Schema } = mongoose;
 const photoSchema = Schema({
-    album: {
-        type: Schema.Types.ObjectId,
-        ref: "album",
-        require: true
+  album: {
+    type: Schema.Types.ObjectId,
+    ref: "album",
+    require: true,
+  },
+  caption: String,
+  comments: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Comment",
     },
-    caption: String,
-    comments: [{
-        type: Schema.Types.ObjectId,
-        ref: "Comment"
-    }],
-    created: {
-        type: Date,
-        require: true,
-        default: Date.now()
+  ],
+  created: {
+    type: Date,
+    require: true,
+    default: Date.now(),
+  },
+  largeSource: {
+    type: String,
+    require: true,
+    unique: true,
+  },
+  likes: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Like",
     },
-    largeSource: {
-        type: String,
-        require: true,
-        unique: true
+  ],
+  link: {
+    type: String,
+    require: true,
+    // 어디를 link?
+    unique: true,
+  },
+  mediumSource: {
+    type: String,
+    require: true,
+    unique: true,
+  },
+  owner: {
+    type: Schema.Types.ObjectId,
+    ref: "Profile",
+  },
+  smallSource: {
+    type: String,
+    require: true,
+    unique: true,
+  },
+  photoTags: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "PhotoTag",
     },
-    likes: [{
-        type: Schema.Types.ObjectId,
-        ref: "Like"
-    }],
-    link: {
-        type: String,
-        require: true,
-        unique: true
+  ],
+  referencePhoto: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Photo",
     },
-    mediumSource: {
-        type: String,
-        require: true,
-        unique: true
-    },
-    owner: {
-        type: Schema.Types.ObjectId,
-        ref: "Profile"
-    },
-    smallSource: {
-        type: String,
-        require: true,
-        unique: true
-    },
-    photoTags: [{
-        type: Schema.Types.ObjectId,
-        ref: "PhotoTag"
-    }]
+  ],
+});
 
-})
-
-export default mongoose.model("Photo", photoSchema)
+export default mongoose.model("Photo", photoSchema);
