@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import CommonButton from "components/Common/CommonButton";
 
 import {
@@ -12,6 +12,7 @@ import {
   FBsecondary,
   FBdark,
   FBlight,
+  FBlightgray,
 } from "components/Common/CommonStyle";
 
 import Icon from "@mdi/react";
@@ -114,7 +115,7 @@ const HeaderProfileIntroduceFragmentWrapper = css`
 
   textarea {
     resize: none;
-    border: 1px solid black;
+    border: 1px solid ${FBlightgray};
     border-radius: 5px;
     background-color: ${FBsecondary};
     text-align: center;
@@ -133,6 +134,7 @@ const HeaderProfileIntroduceFragmentWrapper = css`
 const CommonButtonWrapper = css`
   display: flex;
   justify-content: space-between;
+  margin-bottom: 10px;
 
   div {
     display: flex;
@@ -154,9 +156,40 @@ const HeaderProfileIntroduceFragment: React.FC<HeaderProfileIntroduceFragmentPro
   const { setIntroduce } = props;
 
   const [introduceLength, setIntroduceLength] = useState<number>(0);
+  const [timer, setTimer] = useState<any>();
+  const [introduceText, setIntroduceText] = useState<string>("");
+
+  const reset = useCallback(() => {
+    setIntroduce(false);
+    setTimer(undefined);
+    setIntroduceText("");
+  }, []);
 
   const handleIntroTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setIntroduceLength(+e.currentTarget.value.length);
+
+    // e.currentTarget.value를 그대로 쓰면 아래 setIntroduceText에서 null 에러 발생
+    const tempText: string = e.currentTarget.value;
+    if (timer) {
+      clearTimeout(timer);
+    }
+    setTimer(
+      setTimeout(() => {
+        setIntroduceText(tempText);
+      }, 500),
+    );
+  };
+
+  const handleClickCancelBtn = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    reset();
+  };
+
+  const handleClickSaveBtn = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    console.log("introduceText with debouncing", introduceText);
+    // reset 전에 소개 저장 로직 들어가야함
+    reset();
   };
 
   return (
@@ -175,14 +208,15 @@ const HeaderProfileIntroduceFragment: React.FC<HeaderProfileIntroduceFragmentPro
           <CommonButton
             theme="secondary"
             width="50px"
-            onClick={() => setIntroduce(false)}
+            onClick={handleClickCancelBtn}
           >
             취소
           </CommonButton>
           <CommonButton
             theme="secondary"
             width="50px"
-            onClick={() => setIntroduce(false)}
+            onClick={handleClickSaveBtn}
+            disabled={introduceText.length === 0 ? true : false}
           >
             저장
           </CommonButton>

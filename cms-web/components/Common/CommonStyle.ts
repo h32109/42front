@@ -4,6 +4,7 @@ const FBlight = "#ffffff";
 const FBdark = "#050505";
 const FBsecondary = "#e4e6eb";
 const FBdarkgray = "#65676b";
+const FBlightgray = "#bcc0c4";
 
 const ftXXXLarge = "30px";
 const ftXLarge = "18px";
@@ -19,6 +20,7 @@ export {
   FBdark,
   FBsecondary,
   FBdarkgray,
+  FBlightgray,
   ftXXXLarge,
   ftXLarge,
   ftLarge,
