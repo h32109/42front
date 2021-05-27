@@ -111,6 +111,24 @@ const CommonButton = (props: ICommonButtonProps) => {
     else if (theme === "secondary") return FBdark;
   }, [theme]);
 
+  if (isUpload) {
+    return (
+      <>
+        <label htmlFor="common-button-file-input">{children}</label>
+        <input
+          id="common-button-file-input"
+          type="file"
+          accept="image/*"
+          multiple={isUpload && isMultiple}
+          onClick={(e: React.MouseEvent<HTMLInputElement>) => onClickInput(e)}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            onChangeInput(e)
+          }
+        />
+      </>
+    );
+  }
+
   return (
     <CommonButtonStyle
       type="button"
@@ -122,28 +140,12 @@ const CommonButton = (props: ICommonButtonProps) => {
         height: height,
         ftWeight: ftWeight,
       }}
-      onClick={(e: React.MouseEvent<HTMLButtonElement>) =>
-        !isUpload && onClick(e)
-      }
+      onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+        !isUpload && onClick(e);
+      }}
       disabled={disabled}
     >
-      {!isUpload ? (
-        children
-      ) : (
-        <>
-          <label htmlFor="common-button-file-input">{children}</label>
-          <input
-            id="common-button-file-input"
-            type="file"
-            accept="image/*"
-            multiple={isUpload && isMultiple}
-            onClick={(e: React.MouseEvent<HTMLInputElement>) => onClickInput(e)}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              onChangeInput(e)
-            }
-          />
-        </>
-      )}
+      {children}
     </CommonButtonStyle>
   );
 };

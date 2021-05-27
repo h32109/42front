@@ -1,10 +1,20 @@
 /** @jsxImportSource @emotion/react */
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Button, Card, FormControl } from "react-bootstrap";
 import HidePasswordButton from "./HidePasswordButton";
 import { css } from "@emotion/react";
 import SignupModal from "./SignupModal";
 import { login } from "../../store/authStore";
+
+import {
+  useLazyQuery,
+  useMutation,
+  useReactiveVar,
+  useQuery,
+} from "@apollo/client";
+import UserList, { addUser } from "store/userStore";
+import { ALLUSER_QUERY, ADDUSER_MUTATION } from "api/graphql/schema";
+import { User } from "models/user";
 
 const loginFormStyle = css`
   height: max-content;
@@ -90,8 +100,16 @@ const LoginForm: React.FC = () => {
   const [showModal, setShowModal] = useState(false);
   const [showHideButton, setShowHideButton] = useState(false);
   const [hide, setHide] = useState(true);
+
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
+
+  const { data, loading, error } = useQuery<User>(ALLUSER_QUERY);
+
+  useEffect(() => {
+    console.log(data);
+  }, [data]);
+
   const handlePasswordInputChange = (e: React.ChangeEvent) => {
     e.preventDefault();
     if (passwordRef.current.value) {

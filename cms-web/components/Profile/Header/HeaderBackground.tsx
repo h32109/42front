@@ -42,7 +42,6 @@ const HeaderBackground: React.FC = () => {
   const [isShowPopup, setIsShowPopup] = useState<boolean>(false);
 
   const clickOutSide = useCallback(() => {
-    console.log("out");
     if (isShowPopup) {
       setIsShowPopup(false);
     }
@@ -93,20 +92,18 @@ const HeaderBackgroundPopup: React.FC = () => {
     e: React.MouseEvent<HTMLButtonElement>,
   ) => {
     e.stopPropagation();
-    console.log("사진 선택");
   };
 
   const handlePhotoUploadInputClick = (
-    e: React.MouseEvent<HTMLButtonElement>,
+    e: React.MouseEvent<HTMLInputElement>,
   ) => {
+    e.stopPropagation();
     e.currentTarget.value = "";
     console.log('abcs')
   };
 
   const handlePhotoUploadInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    // e.stopPropagation();
-    alert("file Input");
-    console.log("aaa");
+    e.stopPropagation();
     console.log(e.target.files);
   };
 

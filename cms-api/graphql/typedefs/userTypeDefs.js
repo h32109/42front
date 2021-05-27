@@ -19,10 +19,22 @@ const userTypeDefs = `
       size: Int
       totalPage: Int
     }
+    
+    type User {
+      profile: String
+      identifier: String
+      isVerified: Boolean
+      certificationNumber: String
+      isEmail: Boolean
+      password: String
+    }
 
     type Query {
       getPhotos(page: Int, size: Int): PhotoPage
+      getUser: User
     }
+
+
 `;
 
-export default userTypeDefs
+export default userTypeDefs;
