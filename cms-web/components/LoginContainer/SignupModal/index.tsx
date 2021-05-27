@@ -7,7 +7,7 @@ import GenderContainer from "./GenderContainer";
 import BirthdayContainer from "./BirthdayContainer";
 import { Modal, ModalBody } from "react-bootstrap";
 import ModalHeader from "react-bootstrap/ModalHeader";
-import { Gender, SignUpInputName } from "../../../constant/SignUp";
+import { Gender, SignUpInputName } from "../../../constant/signup";
 import AuthRepository from "../../../api/rest/AuthRepository";
 import { useRouter } from "next/router";
 
@@ -59,6 +59,20 @@ const divStyle = css`
       font-weight: bold;
       font-size: 18px;
     }
+  }
+`;
+
+const signupModalStyle = css`
+  background-color: rgba(255, 255, 255, 0.7);
+
+  div {
+    border: none;
+  }
+  div > .modal-content {
+    background-color: #fff;
+    border-radius: 3px;
+    border-radius: 8px 8px 8px 8px;
+    box-shadow: 0 2px 4px rgb(0 0 0 / 10%);
   }
 `;
 
@@ -170,7 +184,7 @@ const SignupModal: React.FC<SignupModalProps> = ({ show, toggleShow }: SignupMod
   };
 
   return (
-    <Modal show={show} onHide={handleClose} centered>
+    <Modal css={signupModalStyle} show={show} onHide={handleClose} centered>
       <ModalHeader closeButton={true}>
         <div css={modalHeader}>
           <div className={"title"}>가입하기</div>

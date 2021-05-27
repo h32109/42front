@@ -100,6 +100,7 @@ const HeaderBackgroundPopup: React.FC = () => {
     e: React.MouseEvent<HTMLButtonElement>,
   ) => {
     e.currentTarget.value = "";
+    console.log('abcs')
   };
 
   const handlePhotoUploadInput = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -115,21 +116,21 @@ const HeaderBackgroundPopup: React.FC = () => {
         theme="light"
         width="100%"
         ftWeight="normal"
-        onClick={handlePhotoSelectButtonClick}
-      >
-        <Icon className="icon" path={mdiImageMultiple} size={0.8} />
-        <span>사진 선택</span>
-      </CommonButton>
-      <CommonButton
-        theme="light"
-        width="100%"
-        ftWeight="normal"
         isUpload={true}
         onClickInput={handlePhotoUploadInputClick}
         onChangeInput={handlePhotoUploadInput}
       >
         <Icon className="icon" path={mdiUpload} size={0.8} />
         <span>사진 업로드</span>
+      </CommonButton>
+      <CommonButton
+        theme="light"
+        width="100%"
+        ftWeight="normal"
+        onClick={handlePhotoSelectButtonClick}
+      >
+        <Icon className="icon" path={mdiImageMultiple} size={0.8} />
+        <span>사진 선택</span>
       </CommonButton>
     </div>
   );

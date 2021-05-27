@@ -4,7 +4,7 @@ import { css } from "@emotion/react";
 import React, { useMemo, useRef } from "react";
 import Icon from "@mdi/react";
 import { mdiAlertCircle } from "@mdi/js";
-import { SignUpInputName } from "../../../constant/SignUp";
+import { SignUpInputName } from "../../../constant/signup";
 
 const divStyle = css`
   .date-header {

@@ -5,7 +5,7 @@ const connect = () => {
   const MONGO_URL = `mongodb://${MONGO_ID}:${encodeURIComponent(
     MONGO_PASSWORD
   )}@localhost:27017/admin`;
-  console.log(MONGO_URL)
+
   if (NODE_ENV !== "development") {
     mongoose.set("debug", true);
   }

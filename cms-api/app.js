@@ -52,6 +52,7 @@ const allowCrossDomain = function (req, res, next) {
     next();
   }
 };
+
 app.use(allowCrossDomain);
 
 app.use(morgan("dev")); // develop 형식으로 console log 남기기
@@ -82,7 +83,7 @@ app.use(
   `/graphql`,
   graphqlHTTP({
     schema: schema,
-    graphiql: true,
+    graphiql: true
   })
 );
 

@@ -1,6 +1,6 @@
 import { makeVar } from "@apollo/client";
 
-import User from "../models/user";
+import { User } from "../models/user";
 
 const UserList = makeVar<User[]>([]);
 

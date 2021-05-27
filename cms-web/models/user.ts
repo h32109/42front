@@ -7,16 +7,8 @@ export interface UserAssign {
   gender: string;
 }
 
-type User = {
-  name: string;
-  email: string;
-  id: string;
-  password: string;
-};
-
-export interface loginUser {
+export interface User {
+  profile: string;
   identifier: string;
-  password: string;
+  isVerified: boolean;
 }
-
-export default User;

@@ -5,7 +5,7 @@ import React, { ChangeEvent, useState } from "react";
 import Icon from "@mdi/react";
 import { mdiAlertCircle } from "@mdi/js";
 import CustomGenderContainer from "./CustomGenderContainer";
-import { Gender, SignUpInputName } from "../../../constant/SignUp";
+import { Gender, SignUpInputName } from "../../../constant/signup";
 
 const divStyle = css`
   .gender-header {

@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import { PreferredPronoun, SignUpInputName } from "constant/SignUp";
+import { PreferredPronoun, SignUpInputName } from "constant/signup";
 
 import React from "react";
 import { AlertInputStyle } from "./AlertInput";

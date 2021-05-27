@@ -165,7 +165,7 @@ const VerifyContainer: React.FC = () => {
   const handleContactUpdateButtonClick = (e: React.MouseEvent) => {
     e.preventDefault();
     setShowModal(true);
-  }
+  };
   const toggleShow = () => {
     setShowModal(prev => !prev);
   };
