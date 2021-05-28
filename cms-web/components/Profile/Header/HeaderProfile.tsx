@@ -1,8 +1,10 @@
 /** @jsxImportSource @emotion/react */
 
 import React, { useCallback, useState } from "react";
+import { useReactiveVar } from "@apollo/client";
 import CommonButton from "components/Common/CommonButton";
 
+import imageVar, { setProfileImg } from "store/profile/profileImgStore";
 import {
   ftXXXLarge,
   ftLarge,
@@ -78,6 +80,8 @@ const HeaderProfileWrapper = css`
 `;
 
 const HeaderProfile: React.FC = () => {
+  const image: string = useReactiveVar(imageVar);
+
   const [introduce, setIntroduce] = useState<boolean>(false);
 
   const handleAddIntroClick = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -85,13 +89,31 @@ const HeaderProfile: React.FC = () => {
     setIntroduce(true);
   };
 
+  const handlePhotoUploadInputClick = (
+    e: React.MouseEvent<HTMLInputElement>,
+  ) => {
+    e.currentTarget.value = "";
+  };
+
+  const handlePhotoUploadInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setProfileImg(e.currentTarget.files[0]);
+  };
+
   return (
     <div css={HeaderProfileWrapper}>
       <div className="profile-header-profile-img-wrapper">
-        <img src="/images/profile.jpg" alt="default-profile" />
-        <button>
+        <img
+          src={image ? image : "/images/profile.jpg"}
+          alt="default-profile"
+        />
+        <CommonButton
+          theme="light"
+          isUpload={true}
+          onClickInput={handlePhotoUploadInputClick}
+          onChangeInput={handlePhotoUploadInput}
+        >
           <Icon className="icon" path={mdiCamera} />
-        </button>
+        </CommonButton>
       </div>
       <h1>김철수</h1>
       {!introduce ? (

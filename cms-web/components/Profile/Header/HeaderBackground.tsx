@@ -1,8 +1,12 @@
 /** @jsxImportSource @emotion/react */
 
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect } from "react";
 import ReactDOM from "react-dom";
+import { useReactiveVar } from "@apollo/client";
 import CommonButton from "components/Common/CommonButton";
+
+import imageVar, { setBackgroundImg } from "store/profile/backgroundStore";
+import isShowPopupVar, { setIsShowPopupVar } from "store/profile/popupStore";
 
 import Icon from "@mdi/react";
 import { mdiCamera, mdiImageMultiple, mdiUpload } from "@mdi/js";
@@ -36,14 +40,12 @@ const HeaderBackgroundWrapper = css`
 `;
 
 const HeaderBackground: React.FC = () => {
-  const [backgroundImg, setBackgroundImg] = useState<string | undefined>(
-    undefined,
-  );
-  const [isShowPopup, setIsShowPopup] = useState<boolean>(false);
+  const image: string = useReactiveVar(imageVar);
+  const isShowPopup: boolean = useReactiveVar(isShowPopupVar);
 
   const clickOutSide = useCallback(() => {
     if (isShowPopup) {
-      setIsShowPopup(false);
+      setIsShowPopupVar(false);
     }
   }, [isShowPopup]);
 
@@ -54,13 +56,13 @@ const HeaderBackground: React.FC = () => {
 
   const handleButtonClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    setIsShowPopup(true);
+    setIsShowPopupVar(true);
   };
 
   return (
     <>
       <div css={HeaderBackgroundWrapper}>
-        {backgroundImg ? <img src={backgroundImg} alt="background" /> : null}
+        {image ? <img src={image} alt="background" /> : null}
         <div
           id="profile-header-add-cover-btn-wrapper"
           className="profile-header-add-cover-btn-wrapper"
@@ -99,12 +101,11 @@ const HeaderBackgroundPopup: React.FC = () => {
   ) => {
     e.stopPropagation();
     e.currentTarget.value = "";
-    console.log('abcs')
   };
 
   const handlePhotoUploadInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    e.stopPropagation();
-    console.log(e.target.files);
+    setBackgroundImg(e.target.files[0]);
+    setIsShowPopupVar(false);
   };
 
   const Popup = (
@@ -113,21 +114,22 @@ const HeaderBackgroundPopup: React.FC = () => {
         theme="light"
         width="100%"
         ftWeight="normal"
-        isUpload={true}
-        onClickInput={handlePhotoUploadInputClick}
-        onChangeInput={handlePhotoUploadInput}
+        onClick={handlePhotoSelectButtonClick}
       >
-        <Icon className="icon" path={mdiUpload} size={0.8} />
-        <span>사진 업로드</span>
+        <Icon className="icon" path={mdiImageMultiple} size={0.8} />
+        <span>사진 선택</span>
       </CommonButton>
       <CommonButton
         theme="light"
         width="100%"
         ftWeight="normal"
-        onClick={handlePhotoSelectButtonClick}
+        isUpload={true}
+        isExcept={true}
+        onClickInput={handlePhotoUploadInputClick}
+        onChangeInput={handlePhotoUploadInput}
       >
-        <Icon className="icon" path={mdiImageMultiple} size={0.8} />
-        <span>사진 선택</span>
+        <Icon className="icon" path={mdiUpload} size={0.8} />
+        <span>사진 업로드</span>
       </CommonButton>
     </div>
   );
