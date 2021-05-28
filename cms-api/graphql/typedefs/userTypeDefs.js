@@ -30,8 +30,7 @@ const userTypeDefs = `
     }
 
     type Query {
-      getPhotos(page: Int, size: Int): PhotoPage
-      getUser: User
+      allUser: [User]
     }
 
 

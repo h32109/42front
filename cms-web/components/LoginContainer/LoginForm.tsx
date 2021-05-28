@@ -6,14 +6,8 @@ import { css } from "@emotion/react";
 import SignupModal from "./SignupModal";
 import { login } from "../../store/authStore";
 
-import {
-  useLazyQuery,
-  useMutation,
-  useReactiveVar,
-  useQuery,
-} from "@apollo/client";
-import UserList, { addUser } from "store/userStore";
-import { ALLUSER_QUERY, ADDUSER_MUTATION } from "api/graphql/schema";
+import { useQuery } from "@apollo/client";
+import { ALLUSER_QUERY } from "api/graphql/schema";
 import { User } from "models/user";
 
 const loginFormStyle = css`
@@ -107,7 +101,7 @@ const LoginForm: React.FC = () => {
   const { data, loading, error } = useQuery<User>(ALLUSER_QUERY);
 
   useEffect(() => {
-    console.log(data);
+    console.log("잘 연결됐나?", data);
   }, [data]);
 
   const handlePasswordInputChange = (e: React.ChangeEvent) => {

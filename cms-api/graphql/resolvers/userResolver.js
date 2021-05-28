@@ -18,18 +18,18 @@ const selectedRows = (page, size, count) => {
 
 const userResolver = {
   Query: {
-    async getPhotos(_, { page, size }) {
-      console.log("asdfasdf");
-      const photos = await Photo.find({});
-      const { startRow, endRow } = selectedRows(+page, +size, +photos.length);
-      return pagination(
-        photos.slice(startRow, endRow),
-        +page,
-        +size,
-        +photos.length
-      );
-    },
-    async getUser() {
+    // async getPhotos(_, { page, size }) {
+    //   console.log("asdfasdf");
+    //   const photos = await Photo.find({});
+    //   const { startRow, endRow } = selectedRows(+page, +size, +photos.length);
+    //   return pagination(
+    //     photos.slice(startRow, endRow),
+    //     +page,
+    //     +size,
+    //     +photos.length
+    //   );
+    // },
+    async allUser() {
       const user = await User.find({});
       console.log("aaa", user);
       return user;

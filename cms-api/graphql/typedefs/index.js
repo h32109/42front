@@ -1,8 +1,5 @@
 import userTypeDefs from "./userTypeDefs";
-const typeDefs = [
-    userTypeDefs,
-].join('')
 
-console.log(typeDefs)
+const typeDefs = [userTypeDefs].join("");
 
-export default typeDefs
+export default typeDefs;

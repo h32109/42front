@@ -11,4 +11,7 @@ export interface User {
   profile: string;
   identifier: string;
   isVerified: boolean;
+  certificationNumber: string;
+  isEmail: boolean;
+  password: string;
 }

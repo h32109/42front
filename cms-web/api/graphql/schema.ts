@@ -3,10 +3,12 @@ import { gql } from "@apollo/client";
 const ALLUSER_QUERY = gql`
   query {
     allUser {
-      name
-      id
+      profile
+      identifier
+      isVerified
+      certificationNumber
+      isEmail
       password
-      email
     }
   }
 `;
