@@ -2,6 +2,9 @@
 import { css } from "@emotion/react";
 import React from "react";
 
+import Icon from "@mdi/react";
+import { mdiThumbUpOutline, mdiMessageOutline, mdiShareOutline } from "@mdi/js";
+
 const feedCss = css`
   width: 100%;
 
@@ -12,7 +15,7 @@ const feedCss = css`
   .feed-info {
     display: flex;
     width: 100%;
-    height: 36px;
+    height: 48px;
     padding: 12px 16px 0 16px;
     margin-bottom: 12px;
 
@@ -50,6 +53,52 @@ const feedCss = css`
       padding: 1px;
     }
   }
+
+  .feed-actions {
+    .buttons-wrapper {
+      display: flex;
+      border-top: 1px solid grey;
+      border-bottom: 1px solid grey;
+      margin: 0 12px;
+      padding: 4px;
+
+      > div {
+        display: flex;
+        justify-content: center;
+        flex: auto;
+        padding: 6px 2px;
+        font-size: 0.85rem;
+        cursor: pointer;
+        transition: 0.15s all ease-in-out;
+        border-radius: 10px;
+
+        &:hover {
+          background-color: rgb(242, 242, 242);
+        }
+
+        .icon {
+          margin-right: 8px;
+        }
+      }
+    }
+  }
+
+  .write-reply {
+    display: flex;
+
+    .my-image {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background-color: lightpink;
+    }
+
+    .input-box {
+      flex: auto;
+      border: 1px solid black;
+      border-radius: 16px;
+    }
+  }
 `;
 
 const Feed = () => {
@@ -77,17 +126,41 @@ const Feed = () => {
         <div className="response"></div>
 
         <div className="buttons-wrapper">
-          <div className="like-button"></div>
-          <div className="reply-button"></div>
-          <div className="share-button"></div>
+          <div className="like-button">
+            <Icon
+              className="icon"
+              path={mdiThumbUpOutline}
+              color="rgb(101, 103, 107)"
+              size={1}
+            />
+            좋아요
+          </div>
+          <div className="reply-button">
+            <Icon
+              className="icon"
+              path={mdiMessageOutline}
+              color="rgb(101, 103, 107)"
+              size={1}
+            />
+            댓글 달기
+          </div>
+          <div className="share-button">
+            <Icon
+              className="icon"
+              path={mdiShareOutline}
+              color="rgb(101, 103, 107)"
+              size={1}
+            />
+            공유 하기
+          </div>
         </div>
       </div>
 
-      <div className="feed-replies"></div>
       <div className="write-reply">
         <div className="my-image"></div>
         <div className="input-box"></div>
       </div>
+      <div className="feed-replies"></div>
     </article>
   );
 };
