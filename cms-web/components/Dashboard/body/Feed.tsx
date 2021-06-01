@@ -3,7 +3,15 @@ import { css } from "@emotion/react";
 import React from "react";
 
 import Icon from "@mdi/react";
-import { mdiThumbUpOutline, mdiMessageOutline, mdiShareOutline } from "@mdi/js";
+import {
+  mdiThumbUpOutline,
+  mdiMessageOutline,
+  mdiShareOutline,
+  mdiEmoticonHappyOutline,
+  mdiCameraEnhanceOutline,
+  mdiGif,
+  mdiStickerEmoji,
+} from "@mdi/js";
 
 const feedCss = css`
   width: 100%;
@@ -11,6 +19,8 @@ const feedCss = css`
   background-color: #fff;
   border-radius: 10px;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+
+  margin-bottom: 400px;
 
   .feed-info {
     display: flex;
@@ -85,18 +95,54 @@ const feedCss = css`
 
   .write-reply {
     display: flex;
+    padding: 10px;
+    align-items: center;
 
     .my-image {
       width: 30px;
       height: 30px;
       border-radius: 50%;
+      margin-right: 10px;
+
       background-color: lightpink;
     }
 
     .input-box {
+      display: flex;
+      align-items: center;
       flex: auto;
-      border: 1px solid black;
-      border-radius: 16px;
+      height: 36px;
+      background-color: rgb(240, 242, 245);
+      border-radius: 20px;
+      padding: 0 12px;
+
+      input {
+        width: 100%;
+        border: none;
+        background-color: rgba(255, 255, 255, 0);
+        height: 100%;
+        outline: none;
+
+        font-size: 0.9rem;
+      }
+
+      .reply-btns {
+        display: flex;
+
+        > div {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 35px;
+          height: 35px;
+          cursor: pointer;
+          border-radius: 50%;
+
+          &:hover {
+            background-color: rgb(228, 230, 232);
+          }
+        }
+      }
     }
   }
 `;
@@ -158,7 +204,46 @@ const Feed = () => {
 
       <div className="write-reply">
         <div className="my-image"></div>
-        <div className="input-box"></div>
+        <div className="input-box">
+          <input type="text" placeholder="댓글을 입력하세요..." />
+          <div className="reply-btns">
+            <div className="add-emoji">
+              <Icon
+                className="icon"
+                path={mdiEmoticonHappyOutline}
+                color="rgb(101, 103, 107)"
+                size={0.8}
+              />
+            </div>
+
+            <div className="add-image">
+              <Icon
+                className="icon"
+                path={mdiCameraEnhanceOutline}
+                color="rgb(101, 103, 107)"
+                size={0.8}
+              />
+            </div>
+
+            <div className="add-gif">
+              <Icon
+                className="icon"
+                path={mdiGif}
+                color="rgb(101, 103, 107)"
+                size={0.8}
+              />
+            </div>
+
+            <div className="add-sticker">
+              <Icon
+                className="icon"
+                path={mdiStickerEmoji}
+                color="rgb(101, 103, 107)"
+                size={0.8}
+              />
+            </div>
+          </div>
+        </div>
       </div>
       <div className="feed-replies"></div>
     </article>
